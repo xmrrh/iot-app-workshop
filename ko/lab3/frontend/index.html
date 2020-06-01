@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>AWS IoT 환경 구성 :: Hugo 템플릿 활용하기</title>
+    <title>웹 어플리케이션 작성하기 :: Hugo 템플릿 활용하기</title>
 
     
     <link href="/css/nucleus.css?1590977770" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/ko/lab2/">
+  <body class="" data-url="/ko/lab3/frontend/">
     <nav id="sidebar" class="">
 
 
@@ -306,8 +306,8 @@
   
     
     <li data-nav-id="/ko/lab2/" title="AWS IoT 환경 구성" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/ko/lab2/">
@@ -424,7 +424,7 @@
   
     
     <li data-nav-id="/ko/lab3/" title="Application Frontend 만들기" class="dd-item 
-        
+        parent
         
         
         ">
@@ -471,7 +471,7 @@
  
   
     
-      <li data-nav-id="/ko/lab3/frontend/" title="웹 어플리케이션 작성하기" class="dd-item ">
+      <li data-nav-id="/ko/lab3/frontend/" title="웹 어플리케이션 작성하기" class="dd-item active">
         <a href="/ko/lab3/frontend/">
         웹 어플리케이션 작성하기
         
@@ -538,7 +538,7 @@
                   
                     
                     
-                      <option id="ko" value="/ko/lab2/" selected>한국어</option>
+                      <option id="ko" value="/ko/lab3/frontend/" selected>한국어</option>
                     
                   
               
@@ -601,7 +601,13 @@
             
           
           
-            <a href='/ko/'>AWS IoT Application 워크샵</a> > AWS IoT 환경 구성
+            
+            
+          
+          
+            <a href='/ko/'>AWS IoT Application 워크샵</a> > <a href='/ko/lab3/'>Application Frontend 만들기</a> > 웹 어플리케이션 작성하기
+          
+         
           
          
           
@@ -628,7 +634,7 @@
           
             <h1>
               
-              AWS IoT 환경 구성
+              웹 어플리케이션 작성하기
             </h1>
           
 
@@ -636,18 +642,211 @@
 
 
 
+<p><b>App.js 수정하기</b></p>
 
-	<p>본 워크샵에 필요한 IoT 환경을 구성합니다. 실제 스마트팩토리에서 데이타가 올라오는것을 시뮬레이션 하기 위해 Cloud9을 IoT Thing으로 활용하고, 주기적으로 MQTT메시지를 Cloud9에서 AWS IoT Core로 publish하는 환경을 만듭니다.</p>
+<p>App.js로 이동하여 파일 내용을 아래와 같이 수정합니다.</p>
 
-<p>전체 아키텍처 중 붉은 색 박스에 앞단에 해당됩니다.</p>
+<pre><code class="language-shell">import React from 'react';
+import './App.css';
 
-<p><img src="/images/arch.png" alt="arch.png" /></p>
+//---
+import {withAuthenticator} from '@aws-amplify/ui-react';
+
+import GaugechartBoard from './components/GaugechartBoard.js';
+
+import {Container, Header} from 'semantic-ui-react';
+
+import Amplify from 'aws-amplify';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+//-
+
+function App() {
+  return (
+    &lt;div style={styles}&gt;
+      &lt;Container text style={{marginBottom: '1em'}}&gt;
+        &lt;Header as=&quot;h1&quot; style={{textAlign: 'center'}}&gt;
+          IoT Dashboard
+        &lt;/Header&gt;
+      &lt;/Container&gt;
+      &lt;Container style={{marginTop: '2em'}}&gt;
+        &lt;Header as=&quot;h2&quot;&gt;공장 1 라인&lt;/Header&gt;
+        &lt;p&gt;차트를 클릭하면 상세 화면을 보실 수 있습니다.(TBD...)&lt;/p&gt;
+      &lt;/Container&gt;
+      &lt;Container style={{marginTop: '2em'}}&gt;
+        &lt;GaugechartBoard /&gt;
+      &lt;/Container&gt;
+      &lt;Container style={{marginTop: '2em'}}&gt;
+        &lt;Header as=&quot;h2&quot;&gt;공장 2 라인&lt;/Header&gt;
+        &lt;p&gt;사용하지 않는 차트 입니다. &lt;/p&gt;
+      &lt;/Container&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default withAuthenticator(App);
+
+const styles = {
+  marginLeft: '1em',
+  marginRight: '1em',
+};
+
+</code></pre>
+
+<p>수정내용을 요약하면 다음과 같습니다.</p>
+
+<p>amplify backend 연동을 위한 코드</p>
+
+<pre><code class="language-shell">import Amplify from 'aws-amplify';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+</code></pre>
+
+<p>회원 가입 및 인증을 위해 cognito 가입/로그인 화면 연동 :</p>
+
+<pre><code class="language-shell">import {withAuthenticator} from '@aws-amplify/ui-react';
+export default withAuthenticator(App);
+
+</code></pre>
+
+<p>게이지바를 그리기 위한 custom component 생성</p>
+
+<pre><code class="language-shell">import GaugechartBoard from './components/GaugechartBoard.js';
+ &lt;GaugechartBoard /&gt;
+</code></pre>
+
+<p><b>GaugechartBoard.js 생성하기 </b></p>
+
+<p>이제 customer component를 작성합니다.
+src 디렉토리에서 customer 디렉토리를 만들고 GaugechartBoard.js를 만듭니다.</p>
+
+<pre><code class="language-shell">mkdir components
+cd components
+touch GaugechartBoard.js
+</code></pre>
+
+<p>GaugechartBoard.js을 더블클릭 하여 열고 파일 내용을 아래와 같이 복사해서 넣습니다.</p>
+
+<pre><code class="language-shell">import React, {useEffect, useState} from 'react';
+import ReactSpeedometer from 'react-d3-speedometer';
+
+import Amplify, {API, graphqlOperation} from 'aws-amplify';
+import * as subscriptions from '../graphql/subscriptions';
+
+function GaugechartBoard() {
+  const [wCurrentLoad, setWCurrentLoad] = useState();
+  const [wRMSCurrent, setWRMSCurrent] = useState();
+
+  useEffect(() =&gt; {
+    const RMSsubscription = API.graphql(
+      graphqlOperation(subscriptions.onCreateSensor, {
+        sensorType: 'wRMSCurrent',
+      }),
+    ).subscribe({
+      next: eventData =&gt; {
+        setWRMSCurrent(eventData.value.data.onCreateSensor.value);
+      },
+    });
+
+    const Loadsubscription = API.graphql(
+      graphqlOperation(subscriptions.onCreateSensor, {
+        sensorType: 'wCurrentLoad',
+      }),
+    ).subscribe({
+      next: eventData =&gt; {
+        setWCurrentLoad(eventData.value.data.onCreateSensor.value);
+      },
+    });
+
+    return () =&gt; {
+      RMSsubscription.unsubscribe();
+      Loadsubscription.unsubscribe();
+    };
+  }, []);
+  return (
+    &lt;div&gt;
+      wRMSCurrent
+      &lt;ReactSpeedometer
+        width={300}
+        height={300}
+        maxValue={150}
+        segments={4}
+        value={wRMSCurrent}
+      /&gt;
+      wCurrentLoad
+      &lt;ReactSpeedometer
+        width={300}
+        height={300}
+        maxValue={150}
+        segments={4}
+        value={wCurrentLoad}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default GaugechartBoard;
+
+</code></pre>
+
+<p>파일에 작성된 내용을 요약하면 다음과 같습니다.</p>
+
+<p>Appsync API를 생성하는 스키마에서 우리는 다음과 같이 통해 Dynamodb에 항목이 생길때마다(onCreateSensor) subscription을 하는 코드를 정의한 바 있습니다.</p>
+
+<pre><code class="language-shell">type Subscription {
+  onCreateSensor(sensorType: String!): Sensor @aws_subscribe(mutations: [&quot;createSensor&quot;])
+}
+</code></pre>
+
+<p>이를 통해 다음과 같이 항목이 추가될때마다 subscribe()함수가 호출이되고 이 부분에서 화면에 뿌려줄 값을 업데이트 하게 되면 자동으로 화면이 다시 그려지게 됩니다.</p>
+
+<pre><code class="language-shell">const RMSsubscription = API.graphql(
+  graphqlOperation(subscriptions.onCreateSensor, {
+    sensorType: 'wRMSCurrent',
+  }),
+).subscribe({
+  next: eventData =&gt; {
+    setWRMSCurrent(eventData.value.data.onCreateSensor.value);
+  },
+});
+</code></pre>
+
+<p>게이지바를 그리기 위해 다음과 같이 ReactSpeedometer를 추가하였습니다. value에 해당하는 부분이 위에서 업데이트했던 값을 넣어 두어 차트를 실시간으로 변경하고 있습니다.</p>
+
+<pre><code class="language-shell">&lt;ReactSpeedometer
+  width={300}
+  height={300}
+  maxValue={150}
+  segments={4}
+  value={wRMSCurrent}
+/&gt;
+</code></pre>
+
+<p>이제 웹 어플리케이션을 실행합니다.</p>
+
+<pre><code class="language-shell">npm start
+</code></pre>
+
+<p>웹어플리케이션이 시작되면 다음과 같이 로그인 화면이 보이게 됩니다. 이 화면은 amplify에서 default로 제공해주는 화면입니다. 물론 이 화면을 여러분의 화면으로 변경하실수있습니다. 여기서는 default화면을 사용하겠습니다.</p>
+
+<p><img src="/images/auth1.png" alt="auth1.png" /></p>
+
+<p>sign up을 선택하여 회원가입을 합니다.
+이때 비밀번호는 특수문자+숫자+문자의 조합으로 8자이상 넣으셔야 합니다.</p>
+
+<p><img src="/images/auth2.png" alt="auth2.png" />
+입력하신 이메일로 잠시 후 confirm code가 옵니다. 이 값을 입력하시고</p>
+
+<p><img src="/images/auth3.png" alt="auth3.png" /></p>
+
+<p>생성하신 아이디와 비밀번호로 로그인하면 다음과 같은 모니터링 화면을 보실 수 있습니다.
+수고하셨습니다.</p>
+
+<p><img src="/images/screen10.png" alt="screen10.png" /></p>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -831,7 +1030,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -845,8 +1043,21 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
-                        
+            
+            
+                
                     
                 
                 
@@ -891,22 +1102,6 @@
             
         
                     
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
             
         
                     
@@ -915,6 +1110,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -927,6 +1123,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -943,6 +1142,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -967,10 +1167,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/ko/lab1/aws-backend-2/" title="Amplify CL를 이용하여 Backend 생성하기2"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/ko/lab3/react-package-install/" title="React package 추가하기"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/ko/lab2/aws-iot-core/" title="AWS IoT Core 설정하기" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/ko/lab3/react-package-install/" title="React package 추가하기" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1013,3 +1213,4 @@ if (!doNotTrack) {
 
   </body>
 </html>
+

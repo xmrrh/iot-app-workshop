@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>AWS IoT 환경 구성 :: Hugo 템플릿 활용하기</title>
+    <title>React App 만들기 :: Hugo 템플릿 활용하기</title>
 
     
     <link href="/css/nucleus.css?1590977770" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/ko/lab2/">
+  <body class="" data-url="/ko/lab1/react-app-/">
     <nav id="sidebar" class="">
 
 
@@ -167,7 +167,7 @@
   
     
     <li data-nav-id="/ko/lab1/" title="Application Backend 만들기" class="dd-item 
-        
+        parent
         
         
         ">
@@ -214,7 +214,7 @@
  
   
     
-      <li data-nav-id="/ko/lab1/react-app-/" title="React App 만들기" class="dd-item ">
+      <li data-nav-id="/ko/lab1/react-app-/" title="React App 만들기" class="dd-item active">
         <a href="/ko/lab1/react-app-/">
         React App 만들기
         
@@ -306,8 +306,8 @@
   
     
     <li data-nav-id="/ko/lab2/" title="AWS IoT 환경 구성" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/ko/lab2/">
@@ -538,7 +538,7 @@
                   
                     
                     
-                      <option id="ko" value="/ko/lab2/" selected>한국어</option>
+                      <option id="ko" value="/ko/lab1/react-app-/" selected>한국어</option>
                     
                   
               
@@ -601,7 +601,13 @@
             
           
           
-            <a href='/ko/'>AWS IoT Application 워크샵</a> > AWS IoT 환경 구성
+            
+            
+          
+          
+            <a href='/ko/'>AWS IoT Application 워크샵</a> > <a href='/ko/lab1/'>Application Backend 만들기</a> > React App 만들기
+          
+         
           
          
           
@@ -628,7 +634,7 @@
           
             <h1>
               
-              AWS IoT 환경 구성
+              React App 만들기
             </h1>
           
 
@@ -636,18 +642,28 @@
 
 
 
+<p>이제 React 어플리케이션을 만들어 보겠습니다. 이 앱을 base로 벡엔드를 만들고 프론트 엔드 를 확장할 예정입니다.</p>
 
-	<p>본 워크샵에 필요한 IoT 환경을 구성합니다. 실제 스마트팩토리에서 데이타가 올라오는것을 시뮬레이션 하기 위해 Cloud9을 IoT Thing으로 활용하고, 주기적으로 MQTT메시지를 Cloud9에서 AWS IoT Core로 publish하는 환경을 만듭니다.</p>
+<p>React 앱은 다음 명령어를 사용하여 생성합니다. 다음 명령어를 사용하기 위해서는 Node.js와 npm등 몇가지 도구가 필요하나 Cloud9 IDE에는 이미 내장이 되어있습니다. 만약 Cloud9이 아닌 로컬PC환경에서 개발하신다면 <a href = " https://reactjs.org/"> React 공식 페이지</a>를 참고하셔서 개발환경을 셋팅하시기 바랍니다.</p>
 
-<p>전체 아키텍처 중 붉은 색 박스에 앞단에 해당됩니다.</p>
+<pre><code class="language-shell">npx create-react-app react-amplified
+cd react-amplified
+</code></pre>
 
-<p><img src="/images/arch.png" alt="arch.png" /></p>
+<p>위 명령어로 react-amplified 라는 이름으로 React App이 생성되었습니다. 이제 앱을 실행하였습니다.</p>
+
+<pre><code class="language-shell">npm start
+</code></pre>
+
+<p>앱이 실행되었음을 메시지로 확인가능합니다.
+<img src="/images/amplify10.png" alt="amplify10.png" /></p>
+
+<p>앱을 실제로 브라우저에서 띄워보기 위해 상단에 있는 Preview -&gt; Preview Running Application을 선택합니다. 아래처럼 앱을 보실 수 있습니다.</p>
+
+<p><img src="/images/amplify11.png" alt="amplify11.png" /></p>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -735,6 +751,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -747,6 +764,45 @@
             
             
                 
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -791,19 +847,6 @@
             
         
                     
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
             
         
                     
@@ -820,33 +863,10 @@
                     
 
                     
-            
-        
-                    
-            
-        
-                    
                         
             
             
                 
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
                     
                 
                 
@@ -967,10 +987,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/ko/lab1/aws-backend-2/" title="Amplify CL를 이용하여 Backend 생성하기2"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/ko/lab1/amplify-env/" title="Amplify 개발환경 만들기"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/ko/lab2/aws-iot-core/" title="AWS IoT Core 설정하기" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/ko/lab1/amplify-init/" title="Amplify 초기화" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1013,3 +1033,4 @@ if (!doNotTrack) {
 
   </body>
 </html>
+

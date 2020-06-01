@@ -11,10 +11,10 @@
     
     <item>
       <title>Amplify 개발환경 만들기</title>
-      <link>/ko/lab1/amplify-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%92%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <link>/ko/lab1/amplify-env/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ko/lab1/amplify-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%92%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <guid>/ko/lab1/amplify-env/</guid>
       <description>Amplify 개발환경을 만들고 Web application을 만들어 보겠습니다.
 Amplify 개발환경은 여러분 PC에서 구성하셔도 되지만 본 워크샵에서는 Cloud9 IDE에서 개발하도록 하겠습니다.
 console에서 Cloud9으로 이동합니다.
@@ -23,10 +23,10 @@ console에서 Cloud9으로 이동합니다.
     
     <item>
       <title>React App 만들기</title>
-      <link>/ko/lab1/react-app-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <link>/ko/lab1/react-app-/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ko/lab1/react-app-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <guid>/ko/lab1/react-app-/</guid>
       <description>이제 React 어플리케이션을 만들어 보겠습니다. 이 앱을 base로 벡엔드를 만들고 프론트 엔드 를 확장할 예정입니다.
 React 앱은 다음 명령어를 사용하여 생성합니다. 다음 명령어를 사용하기 위해서는 Node.js와 npm등 몇가지 도구가 필요하나 Cloud9 IDE에는 이미 내장이 되어있습니다. 만약 Cloud9이 아닌 로컬PC환경에서 개발하신다면 React 공식 페이지를 참고하셔서 개발환경을 셋팅하시기 바랍니다.
 npx create-react-app react-amplified cd react-amplified  위 명령어로 react-amplified 라는 이름으로 React App이 생성되었습니다. 이제 앱을 실행하였습니다.
@@ -35,10 +35,10 @@ npm start  앱이 실행되었음을 메시지로 확인가능합니다.</descri
     
     <item>
       <title>Amplify 초기화</title>
-      <link>/ko/lab1/amplify-%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%92%E1%85%AA/</link>
+      <link>/ko/lab1/amplify-init/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ko/lab1/amplify-%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%92%E1%85%AA/</guid>
+      <guid>/ko/lab1/amplify-init/</guid>
       <description>구동중인 React App은 잠시 중단하도록 하겠습니다. (ctrl+c)
 Amplify CLI를 이용하여 AWS다양한 서비스를 application의 백엔드 생성을 위해 amplify project을 초기화 해야합니다.
 application의 home 에서 다음 명령어를 수행합니다.
@@ -48,10 +48,10 @@ amplify init  입력값은 다음을 참고하여 넣습니다.
     
     <item>
       <title>Amplify CL를 이용하여 Backend 생성하기 1</title>
-      <link>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B51/</link>
+      <link>/ko/lab1/aws-backend-1/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B51/</guid>
+      <guid>/ko/lab1/aws-backend-1/</guid>
       <description>이제 IoT device를 통해 메시지가 최종적으로 저장될 dynamodb를 생성해보도록 하겠습니다. Amplify CLI를 이용하면 dynamodb를 직접 console에서 만들필요가 없는데요,
 Appsync에 dynamodb에서 사용할 스키마를 정의하면 Amplify framework을 통해 dynamodb의 테이블과 그 테이블을 access할수있는 graphql api를 자동생성할 수. 있습니다.
 amplify cli의 명령어는 다음과 같이 확인 가능합니다.
@@ -61,10 +61,10 @@ amplify add api  다음을 참고하여 입력값을 넣습니다. api호출을 
     
     <item>
       <title>Amplify CL를 이용하여 Backend 생성하기2</title>
-      <link>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B52/</link>
+      <link>/ko/lab1/aws-backend-2/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B52/</guid>
+      <guid>/ko/lab1/aws-backend-2/</guid>
       <description>이제 graphql api를 호출하여 dynamodb에 센서데이타를 insert하기 위한 lambda함수를 만들어보겠습니다.
 lambda함수는 다음과 같이 생성하실 수 있습니다.
 amplify add function  입력값은 다음을 참고하세요. 람다에서 다른 리소스를 참조할거냐는 질문에는 api라고 답합니다. 이전에 만들었던 graphql api를 참조하기 때문입니다. api선택은 커서를 이동시키고 스페이스바를 누르면 선택됩니다. CRUD를 선택하는데 있어서 a를 누르면 모두 선택되고, 스페이스바를 통해서 각각 하셔도 됩니다.

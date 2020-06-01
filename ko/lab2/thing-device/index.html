@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>AWS IoT 환경 구성 :: Hugo 템플릿 활용하기</title>
+    <title>Thing Device만들기 :: Hugo 템플릿 활용하기</title>
 
     
     <link href="/css/nucleus.css?1590977770" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/ko/lab2/">
+  <body class="" data-url="/ko/lab2/thing-device/">
     <nav id="sidebar" class="">
 
 
@@ -307,7 +307,7 @@
     
     <li data-nav-id="/ko/lab2/" title="AWS IoT 환경 구성" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/ko/lab2/">
@@ -353,7 +353,7 @@
  
   
     
-      <li data-nav-id="/ko/lab2/thing-device/" title="Thing Device만들기" class="dd-item ">
+      <li data-nav-id="/ko/lab2/thing-device/" title="Thing Device만들기" class="dd-item active">
         <a href="/ko/lab2/thing-device/">
         Thing Device만들기
         
@@ -538,7 +538,7 @@
                   
                     
                     
-                      <option id="ko" value="/ko/lab2/" selected>한국어</option>
+                      <option id="ko" value="/ko/lab2/thing-device/" selected>한국어</option>
                     
                   
               
@@ -601,7 +601,13 @@
             
           
           
-            <a href='/ko/'>AWS IoT Application 워크샵</a> > AWS IoT 환경 구성
+            
+            
+          
+          
+            <a href='/ko/'>AWS IoT Application 워크샵</a> > <a href='/ko/lab2/'>AWS IoT 환경 구성</a> > Thing Device만들기
+          
+         
           
          
           
@@ -628,7 +634,7 @@
           
             <h1>
               
-              AWS IoT 환경 구성
+              Thing Device만들기
             </h1>
           
 
@@ -636,18 +642,60 @@
 
 
 
+<p><b>Cloud9을 IoT Thing 디바이스로 만들기</b></p>
 
-	<p>본 워크샵에 필요한 IoT 환경을 구성합니다. 실제 스마트팩토리에서 데이타가 올라오는것을 시뮬레이션 하기 위해 Cloud9을 IoT Thing으로 활용하고, 주기적으로 MQTT메시지를 Cloud9에서 AWS IoT Core로 publish하는 환경을 만듭니다.</p>
+<p>IoT Device의 역할을 할 cloud9인스턴스를 생성합니다.</p>
 
-<p>전체 아키텍처 중 붉은 색 박스에 앞단에 해당됩니다.</p>
+<p>이를 위해 console에서 Cloud9으로 이동합니다.</p>
 
-<p><img src="/images/arch.png" alt="arch.png" /></p>
+<p><img src="/images/cloud9-1.png" alt="cloud9-1.png" /></p>
+
+<p>&ldquo;Create environment&rdquo;를 클릭하고, Name에 device이름을 넣습니다. (아무이름이나 상관없습니다.)
+<img src="/images/cloud9-2.png" alt="cloud9-2.png" /></p>
+
+<p>Next Step을 클릭합니다. 나머지는 default설정을 유지한 채 마지막  &ldquo;Create environment&rdquo; 버튼을 통해 Cloud9을 생성합니다.
+<img src="/images/cloud9-3.png" alt="cloud9-3.png" /></p>
+
+<p>잠시 후 Cloud9 IDE로 이동된 것을 보실 수 있습니다.
+<img src="/images/picture6.png" alt="picture6.png" /></p>
+
+<p>레이아웃을 본인에게 맞게 커스터마이징 합니다. 예를 들어 아래와 같이 모든 창을 닫고 하나의 terminal 만 열어두었습니다.</p>
+
+<p><img src="/images/cloud9-4.png" alt="cloud9-4.png" /></p>
+
+<p>앞 장에서 IoT Core -다운로드 받은 파일을 Cloud9, 즉, Thing Device로 업로드합니다.</p>
+
+<p><img src="/images/picture8.png" alt="picture8.png" /></p>
+
+<p>Cloud9 IDE에서 terminal을 열고 다음 Step대로 진행합니다.</p>
+
+<pre><code class="language-shell">unzip connect_device_package.zip
+</code></pre>
+
+<pre><code class="language-shell">chmod +x start.sh
+</code></pre>
+
+<p>start.sh 스크립트에는 AWS IoT SDK를 설치하는 과정이 포함되어있습니다. IoT Thing Device에서는 AWS IoT SDK를 사용하면 매우 편리하게 IoT Core와 통신할 수 있는 라이브러리를 지원받을 수 있습니다. 이때 먼저 업로드 했던 인증서 및 private key등을 이용하여 토픽을 발행합니다.  Cloud9 IDE에서 AWSIoTPythonSDK 설치 권한을 얻기 위하여 반드시 <strong><em>sudo</em></strong>를 포함하여 아래 명령을 실행합니다.</p>
+
+<pre><code class="language-shell">sudo ./start.sh
+</code></pre>
+
+<p><strong><em>start.sh</em></strong>를 실행시키시면 아래 화면과 같이 Cloud9 IDE에서 <strong><em>sdk/test/Python</em></strong>이라는 Topic으로 MQTT 메시지를 publish하는 것을 보실 수 있습니다.</p>
+
+<p><img src="/images/picture9.png" alt="picture9.png" /></p>
+
+<p>[IoT Core &gt; Test] 로 이동 후, <strong><em>sdk/test/Python</em></strong>이라는 Topic을 subscribe합니다.</p>
+
+<p><img src="/images/iotcore9.png" alt="iotcore9.png" /></p>
+
+<p>그리고, Cloud9 IDE에서 publish하는 MQTT 메시지가 정상적으로 수신되는지 확인합니다.</p>
+
+<p><img src="/images/iotcore10.png" alt="iotcore9.png" /></p>
+
+<p>MQTT 메시지가 정상적으로 수신되는지 확인이 완료되면, Cloud9 IDE에서 <strong><em>Ctrl + C</em></strong>를 입력하여 <strong><em>start.sh</em></strong>를 종료합니다.</p>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -864,6 +912,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -879,6 +928,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -967,10 +1019,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/ko/lab1/aws-backend-2/" title="Amplify CL를 이용하여 Backend 생성하기2"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/ko/lab2/aws-iot-core/" title="AWS IoT Core 설정하기"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/ko/lab2/aws-iot-core/" title="AWS IoT Core 설정하기" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/ko/lab2/topic-simulation/" title="토픽시뮬레이션" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1013,3 +1065,4 @@ if (!doNotTrack) {
 
   </body>
 </html>
+

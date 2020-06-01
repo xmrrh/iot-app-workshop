@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>AWS IoT 환경 구성 :: Hugo 템플릿 활용하기</title>
+    <title>Amplify CL를 이용하여 Backend 생성하기 1 :: Hugo 템플릿 활용하기</title>
 
     
     <link href="/css/nucleus.css?1590977770" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/ko/lab2/">
+  <body class="" data-url="/ko/lab1/aws-backend-1/">
     <nav id="sidebar" class="">
 
 
@@ -167,7 +167,7 @@
   
     
     <li data-nav-id="/ko/lab1/" title="Application Backend 만들기" class="dd-item 
-        
+        parent
         
         
         ">
@@ -256,7 +256,7 @@
  
   
     
-      <li data-nav-id="/ko/lab1/aws-backend-1/" title="Amplify CL를 이용하여 Backend 생성하기 1" class="dd-item ">
+      <li data-nav-id="/ko/lab1/aws-backend-1/" title="Amplify CL를 이용하여 Backend 생성하기 1" class="dd-item active">
         <a href="/ko/lab1/aws-backend-1/">
         Amplify CL를 이용하여 Backend 생성하기 1
         
@@ -306,8 +306,8 @@
   
     
     <li data-nav-id="/ko/lab2/" title="AWS IoT 환경 구성" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/ko/lab2/">
@@ -538,7 +538,7 @@
                   
                     
                     
-                      <option id="ko" value="/ko/lab2/" selected>한국어</option>
+                      <option id="ko" value="/ko/lab1/aws-backend-1/" selected>한국어</option>
                     
                   
               
@@ -601,7 +601,13 @@
             
           
           
-            <a href='/ko/'>AWS IoT Application 워크샵</a> > AWS IoT 환경 구성
+            
+            
+          
+          
+            <a href='/ko/'>AWS IoT Application 워크샵</a> > <a href='/ko/lab1/'>Application Backend 만들기</a> > Amplify CL를 이용하여 Backend 생성하기 1
+          
+         
           
          
           
@@ -628,7 +634,7 @@
           
             <h1>
               
-              AWS IoT 환경 구성
+              Amplify CL를 이용하여 Backend 생성하기 1
             </h1>
           
 
@@ -636,18 +642,89 @@
 
 
 
+<p>이제 IoT device를 통해 메시지가 최종적으로 저장될 dynamodb를 생성해보도록 하겠습니다.
+Amplify CLI를 이용하면 dynamodb를 직접 console에서 만들필요가 없는데요,</p>
 
-	<p>본 워크샵에 필요한 IoT 환경을 구성합니다. 실제 스마트팩토리에서 데이타가 올라오는것을 시뮬레이션 하기 위해 Cloud9을 IoT Thing으로 활용하고, 주기적으로 MQTT메시지를 Cloud9에서 AWS IoT Core로 publish하는 환경을 만듭니다.</p>
+<p>Appsync에 dynamodb에서 사용할 스키마를 정의하면 Amplify framework을 통해 dynamodb의 테이블과 그 테이블을 access할수있는 graphql api를 자동생성할 수. 있습니다.</p>
 
-<p>전체 아키텍처 중 붉은 색 박스에 앞단에 해당됩니다.</p>
+<p>amplify cli의 명령어는 다음과 같이 확인 가능합니다.</p>
 
-<p><img src="/images/arch.png" alt="arch.png" /></p>
+<p><img src="/images/amplify30.png" alt="amplify30.png" /></p>
+
+<p>다음과 같이 명령어를 입력합니다.</p>
+
+<pre><code class="language-shell">amplify add api
+</code></pre>
+
+<p>다음을 참고하여 입력값을 넣습니다. api호출을 위해 권한이 필요하기 때문에 cognito user pool을 생성하였습니다.
+<img src="/images/api1.png" alt="api1.png" /></p>
+
+<p>graphql api는 람다에서도 호출할 예정입니다. 이때는 IAM권한으로 호출할것인데요, 이를 위해 권한을 다음과 같이 추가합니다.  즉, 생성하는 graphql api 는 cognito와 iam으로 권한을 인증받겠다는 것입니다.</p>
+
+<p><strong><em>Configure additional auth types?</em></strong> 이 default값이 <strong>No</strong>입니다. <strong>Yes</strong>로 바꿔서 입력해야합니다. 주의하세요!</p>
+
+<p><img src="/images/api2.png" alt="api2.png" /></p>
+
+<p>다음 입력값도 아래을 참고하여 넣습니다.
+마지막에 schema을 편집할것인지 묻는데, yes를 누르면 스키마를 넣을수있습니다. 샘플로 제시된 스키마를 모두 지우고 아래 스키마로 입력 저장후 wq로 빠져나오게 되면 amplify add api 가 완료됩니다.</p>
+
+<p><img src="/images/api3.png" alt="api3.png" /></p>
+
+<pre><code class="language-shell">type Sensor @model(subscriptions: null)
+@key(fields: [&quot;sensorType&quot;, &quot;timestamp&quot;])
+@auth(
+    rules: [
+      {allow: private, provider: iam}
+      {allow: private, provider: userPools}
+    ]
+) 
+{
+  id: ID!
+  sensorType: String!
+  value: Float!
+  isWarning: Boolean!
+  timestamp: AWSTimestamp!
+}
+type Subscription {
+  onCreateSensor(sensorType: String!): Sensor @aws_subscribe(mutations: [&quot;createSensor&quot;])
+}
+</code></pre>
+
+<p>다음 명령어로 amplify add api의 결과를 살펴봅니다.</p>
+
+<pre><code class="language-shell">amplify status
+</code></pre>
+
+<p><img src="/images/api4.png" alt="api4.png" /></p>
+
+<p>이제 다음명령어로 실제 AWS의 벡앤드서비스가 생성이 됩니다.</p>
+
+<pre><code class="language-shell">amplify push
+</code></pre>
+
+<p>필요한 입력값은 아래를 참고하여 넣으세요(default설정). 약 10분 정도 후에 완료됩니다.
+<img src="/images/api6.png" alt="api4.png" /></p>
+
+<p>다시 amplify status를 해봅니다. 상태가 변경된 것을 확인하실 수 있습니다.</p>
+
+<pre><code class="language-shell">amplify status
+</code></pre>
+
+<p><img src="/images/api7.png" alt="api7.png" /></p>
+
+<p>실제 백엔드에 서비스가 생성되었는지 확인을 해보도록 하겠습니다.
+console-&gt;appsync, console-&gt;dynamodb에 가보시면 각각 생성된 것을 확인하실 수 있습니다.</p>
+
+<p><img src="/images/api8.png" alt="api8.png" />
+<img src="/images/api9.png" alt="api9.png" /></p>
+
+<p>소스로 돌아가 보면 벡앤드에 필요한 다양한 파일들이 생성된것을 확인하실 수 있습니다.
+그중 aws-exports.js는 벡엔드에 대한 mata data를 담고 있는 파일입니다.</p>
+
+<p><img src="/images/api11.png" alt="api11.png" /></p>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -735,6 +812,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -747,6 +825,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -796,6 +877,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -803,6 +885,28 @@
                     
                     
 
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
                     
             
         
@@ -820,33 +924,10 @@
                     
 
                     
-            
-        
-                    
-            
-        
-                    
                         
             
             
                 
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
                     
                 
                 
@@ -967,10 +1048,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/ko/lab1/aws-backend-2/" title="Amplify CL를 이용하여 Backend 생성하기2"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/ko/lab1/amplify-init/" title="Amplify 초기화"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/ko/lab2/aws-iot-core/" title="AWS IoT Core 설정하기" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/ko/lab1/aws-backend-2/" title="Amplify CL를 이용하여 Backend 생성하기2" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1013,3 +1094,4 @@ if (!doNotTrack) {
 
   </body>
 </html>
+

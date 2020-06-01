@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>AWS IoT 환경 구성 :: Hugo 템플릿 활용하기</title>
+    <title>Amplify CL를 이용하여 Backend 생성하기2 :: Hugo 템플릿 활용하기</title>
 
     
     <link href="/css/nucleus.css?1590977770" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/ko/lab2/">
+  <body class="" data-url="/ko/lab1/aws-backend-2/">
     <nav id="sidebar" class="">
 
 
@@ -167,7 +167,7 @@
   
     
     <li data-nav-id="/ko/lab1/" title="Application Backend 만들기" class="dd-item 
-        
+        parent
         
         
         ">
@@ -277,7 +277,7 @@
  
   
     
-      <li data-nav-id="/ko/lab1/aws-backend-2/" title="Amplify CL를 이용하여 Backend 생성하기2" class="dd-item ">
+      <li data-nav-id="/ko/lab1/aws-backend-2/" title="Amplify CL를 이용하여 Backend 생성하기2" class="dd-item active">
         <a href="/ko/lab1/aws-backend-2/">
         Amplify CL를 이용하여 Backend 생성하기2
         
@@ -306,8 +306,8 @@
   
     
     <li data-nav-id="/ko/lab2/" title="AWS IoT 환경 구성" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/ko/lab2/">
@@ -538,7 +538,7 @@
                   
                     
                     
-                      <option id="ko" value="/ko/lab2/" selected>한국어</option>
+                      <option id="ko" value="/ko/lab1/aws-backend-2/" selected>한국어</option>
                     
                   
               
@@ -601,7 +601,13 @@
             
           
           
-            <a href='/ko/'>AWS IoT Application 워크샵</a> > AWS IoT 환경 구성
+            
+            
+          
+          
+            <a href='/ko/'>AWS IoT Application 워크샵</a> > <a href='/ko/lab1/'>Application Backend 만들기</a> > Amplify CL를 이용하여 Backend 생성하기2
+          
+         
           
          
           
@@ -628,7 +634,7 @@
           
             <h1>
               
-              AWS IoT 환경 구성
+              Amplify CL를 이용하여 Backend 생성하기2
             </h1>
           
 
@@ -636,18 +642,173 @@
 
 
 
+<p>이제 graphql api를 호출하여 dynamodb에 센서데이타를 insert하기 위한 lambda함수를 만들어보겠습니다.</p>
 
-	<p>본 워크샵에 필요한 IoT 환경을 구성합니다. 실제 스마트팩토리에서 데이타가 올라오는것을 시뮬레이션 하기 위해 Cloud9을 IoT Thing으로 활용하고, 주기적으로 MQTT메시지를 Cloud9에서 AWS IoT Core로 publish하는 환경을 만듭니다.</p>
+<p>lambda함수는 다음과 같이 생성하실 수 있습니다.</p>
 
-<p>전체 아키텍처 중 붉은 색 박스에 앞단에 해당됩니다.</p>
+<pre><code class="language-shell">amplify add function
+</code></pre>
 
-<p><img src="/images/arch.png" alt="arch.png" /></p>
+<p>입력값은 다음을 참고하세요.
+람다에서 다른 리소스를 참조할거냐는 질문에는 api라고 답합니다. 이전에 만들었던 graphql api를 참조하기 때문입니다. api선택은 커서를 이동시키고 스페이스바를 누르면 선택됩니다.
+CRUD를 선택하는데 있어서 a를 누르면 모두 선택되고, 스페이스바를 통해서 각각 하셔도 됩니다.</p>
+
+<p><img src="/images/func1.png" alt="func1.png" /></p>
+
+<p>이제 람다 함수를 작성합니다. Cloud9에서 amplify-&gt;backend-&gt;function-&gt;function-name-&gt;src-&gt;index.js파일을 더블클릭합니다.</p>
+
+<p><img src="/images/func2.png" alt="func1.png" /></p>
+
+<p>index.js파일을 아래 내용으로 교체합니다. 이때 리전과 GRAPHQLAPIENDPOINTOUTPUT 환경변수의 이름에 주의하셔야 합니다. 리전은 사용하신 리전을 넣고, GRAPHQLAPIENDPOINTOUTPUT는 앱 프로젝트 명을 대문자로 주셔야 합니다. 만약 -가 들어가있다면 제외되고 넣으시면 됩니다.</p>
+
+<p>ex) react-amplified &ndash;&gt; API_REACTAMPLIFIED_GRAPHQLAPIENDPOINTOUTPUT</p>
+
+<pre><code class="language-shell">/* Amplify Params - DO NOT EDIT
+    API_REACTAMPLIFIED_GRAPHQLAPIENDPOINTOUTPUT
+    API_REACTAMPLIFIED_GRAPHQLAPIIDOUTPUT
+    ENV
+    REGION
+Amplify Params - DO NOT EDIT */
+
+const AWS = require('aws-sdk');
+const appsync = require('aws-appsync');
+const gql = require('graphql-tag');
+require('isomorphic-fetch');
+
+const lambda = new AWS.Lambda({
+  region: 'ap-northeast-2', 
+});
+
+AWS.config.update({
+  region: process.env.REGION,
+});
+
+const credentials = AWS.config.credentials;
+
+exports.handler = (event, context, callback) =&gt; {
+
+  const graphqlClient = new appsync.AWSAppSyncClient({
+    url: process.env.API_REACTAMPLIFIED_GRAPHQLAPIENDPOINTOUTPUT,
+    region: process.env.REGION,
+    auth: {
+      type: 'AWS_IAM',
+      credentials: credentials,
+    },
+    disableOffline: true,
+  });
+
+  const createSensor = gql`
+    mutation CreateSensor(
+      $input: CreateSensorInput!
+      $condition: ModelSensorConditionInput
+    ) {
+      createSensor(input: $input, condition: $condition) {
+        id
+        sensorType
+        value
+        isWarning
+        timestamp
+        createdAt
+        updatedAt
+      }
+    }
+  `;
+
+  var real = JSON.stringify(event);
+  var jsonObj = JSON.parse(real);
+
+  const timestamp = new Date(jsonObj.sDateTime).valueOf();
 
 
+  try {
+
+    Object.keys(jsonObj).map(async function(index) {
+      {
+        if (
+          index === 'rVibration_Temp' ||
+          index === 'rVibration_Z_RMS_Velocity' ||
+          index === 'rVibration_X_RMS_Velocity' ||
+          index === 'wRMSCurrent' ||
+          index === 'wCurrentLoad' ||
+          index === 'wEncoderVelocity' ||
+          index === 'wCylinderStatus'
+        ) {
+          console.log('insert ' + index + 'value = ' + jsonObj[index]);
+
+          
+          await graphqlClient.mutate({
+            mutation: createSensor,
+            variables: {
+              input: {
+                id: '0001',
+                sensorType: index,
+                value: jsonObj[index],
+                isWarning: false,
+                timestamp: timestamp,
+              },
+            },
+          });
+        }
+      }
+    });
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify({message: 'Success'}),
+    };
+
+    return response;
+  } catch (err) {
+    console.log('an error occured' + err.message);
+
+    const response = {
+      statusCode: 400,
+      body: JSON.stringify({message: err.message}),
+    };
+
+    return response;
+  }
+};
+
+</code></pre>
+
+<p>Cloud9에서 amplify-&gt;backend-&gt;function-&gt;function-name-&gt;src-&gt;package.json파일을 더블클릭합니다. 다음과 같이 람다에서 필요한 패키지를 넣어줍니다.</p>
+
+<pre><code class="language-shell">&quot;dependencies&quot;: {
+  &quot;aws-appsync&quot;: &quot;^2.0.0&quot;,
+  &quot;graphql&quot;: &quot;^14.5.5&quot;,
+  &quot;graphql-tag&quot;: &quot;^2.10.1&quot;,
+  &quot;isomorphic-fetch&quot;: &quot;^2.2.1&quot;
+},
+</code></pre>
+
+<p>최종 다음과 같습니다.</p>
+
+<p><img src="/images/func3.png" alt="func3.png" /></p>
+
+<p>이제 저장하고, 다음 명령어를 입력합니다.</p>
+
+<pre><code class="language-shell">amplify function build
+</code></pre>
+
+<p><img src="/images/func4.png" alt="func4.png" /></p>
+
+<p>완료 후 src 밑에 node_modules폴더가 추가되었는지 확인하고 생성이 안되어있다면 dist폴더를 지우고 다시 시도합니다.</p>
+
+<p><img src="/images/func5.png" alt="func5.png" /></p>
+
+<p>이제 amplify push해 줍니다.</p>
+
+<pre><code class="language-shell">amplify push
+</code></pre>
+
+<p>몇분 후 console-&gt;lambda 에 들어가보시면 새로운 람다가 생성된 것을 확인하실수있습니다.</p>
+
+<p><img src="/images/func6.png" alt="func6.png" /></p>
+
+<p><img src="/images/func7.png" alt="func7.png" /></p>
 
 
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -735,6 +896,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -747,6 +909,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -812,6 +977,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -831,6 +997,8 @@
             
                 
                     
+                        
+                        
                     
                 
                 
@@ -844,9 +1012,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -967,10 +1132,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/ko/lab1/aws-backend-2/" title="Amplify CL를 이용하여 Backend 생성하기2"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/ko/lab1/aws-backend-1/" title="Amplify CL를 이용하여 Backend 생성하기 1"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/ko/lab2/aws-iot-core/" title="AWS IoT Core 설정하기" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/ko/lab2/" title="AWS IoT 환경 구성" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1013,3 +1178,4 @@ if (!doNotTrack) {
 
   </body>
 </html>
+

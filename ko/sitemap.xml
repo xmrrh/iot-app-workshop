@@ -26,11 +26,11 @@
   </url>
   
   <url>
-    <loc>/ko/lab2/aws-iot-core-%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</loc>
+    <loc>/ko/lab2/aws-iot-core/</loc>
   </url>
   
   <url>
-    <loc>/ko/lab3/react-package-%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A1%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</loc>
+    <loc>/ko/lab3/react-package-install/</loc>
   </url>
   
   <url>
@@ -42,11 +42,11 @@
   </url>
   
   <url>
-    <loc>/ko/lab1/amplify-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%92%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</loc>
+    <loc>/ko/lab1/amplify-env/</loc>
   </url>
   
   <url>
-    <loc>/ko/lab1/react-app-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</loc>
+    <loc>/ko/lab1/react-app-/</loc>
   </url>
   
   <url>
@@ -54,11 +54,11 @@
   </url>
   
   <url>
-    <loc>/ko/lab2/thing-device%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</loc>
+    <loc>/ko/lab2/thing-device/</loc>
   </url>
   
   <url>
-    <loc>/ko/lab1/amplify-%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%92%E1%85%AA/</loc>
+    <loc>/ko/lab1/amplify-init/</loc>
   </url>
   
   <url>
@@ -66,23 +66,23 @@
   </url>
   
   <url>
-    <loc>/ko/lab2/%E1%84%90%E1%85%A9%E1%84%91%E1%85%B5%E1%86%A8%E1%84%89%E1%85%B5%E1%84%86%E1%85%B2%E1%86%AF%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB/</loc>
+    <loc>/ko/lab2/topic-simulation/</loc>
   </url>
   
   <url>
-    <loc>/ko/lab2/aws-iot-rule%E1%84%8B%E1%85%A6%E1%86%AB%E1%84%8C%E1%85%B5%E1%86%AB-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</loc>
+    <loc>/ko/lab2/aws-iot-rule/</loc>
   </url>
   
   <url>
-    <loc>/ko/lab3/%E1%84%8B%E1%85%B0%E1%86%B8-%E1%84%8B%E1%85%A5%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</loc>
+    <loc>/ko/lab3/frontend/</loc>
   </url>
   
   <url>
-    <loc>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B51/</loc>
+    <loc>/ko/lab1/aws-backend-1/</loc>
   </url>
   
   <url>
-    <loc>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B52/</loc>
+    <loc>/ko/lab1/aws-backend-2/</loc>
   </url>
   
   <url>
