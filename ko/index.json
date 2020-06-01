@@ -1,0 +1,148 @@
+[
+{
+	"uri": "/ko/",
+	"title": "AWS IoT Application 워크샵",
+	"tags": [],
+	"description": "",
+	"content": " AWS IoT Application 워크샵 본 자료는 AWS Summit Online Korea 2020 에서 빌더스존 - 스마트팩토리의 Application 을 워크샵형태로 만들었습니다.\n영상보기\n스마트팩토리 데모(영상)에서는 Mobile Application으로 작성하였으나, 워크샵으로 활용하기 위해 일부 기능을 축소하고 web application형태로 만들었습니다.\n"
+},
+{
+	"uri": "/ko/lab0/",
+	"title": "워크샵에서 사용된 서비스 소개",
+	"tags": [],
+	"description": "",
+	"content": " 아래 서비스를 잘 알고 있다면 다음단계로 넘어가세요.\n - 1-1. Amplify - 1-2. AppSync\n"
+},
+{
+	"uri": "/ko/lab1/",
+	"title": "Application Backend 만들기",
+	"tags": [],
+	"description": "",
+	"content": "이번 장에서는 Amplify 를 이용하여 AWS의 벡엔드 시스템을 생성합니다. 전체 아키텍처 중 붉은 색 박스에 해당됩니다.\n"
+},
+{
+	"uri": "/ko/lab2/aws-iot-core-%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/",
+	"title": "AWS IoT Core 설정하기",
+	"tags": [],
+	"description": "",
+	"content": "IoT Core에 IoT Thing 만들기\nIoT core에서 Thing을 생성합니다. ioT Core console로 이동한 후 Onboard a device에서 Get Started를 클릭합니다. 다음 화면에서 Get Started를 클릭하여 진행합니다.\nPlatform과 AWS IoT Device SDK에 사용하실 언어를 선택할 수 있습니다. 본 실습에서는 Linux/OSX 와 Python 을 선택합니다. 그리고, Next를 클릭하여 다음 단계로 진행합니다.\nThing(사물)의 이름을 지정하고 등록합니다. 예를 들어 MyThing으로 지정하실 수 있습니다. Next step을 클릭하여 다음 단계로 진행합니다.\nDownload connection kit for 아래의 버튼을 클릭하여, public key, private key, 인증서와 예제 script를 다운로드 받습니다. Next step을 클릭하여 다음 단계로 진행합니다.\nDone을 눌러서 설정을 종료합니다.\n다운받은 파일은 실제 Thing 디바이스에 다운로드 해야합니다. 이 파일에는 인증서 및 Private Key등 디바이스에서 사용할 주요 정보들이 들어있습니다. 본 워크샵에서는 Cloud9 을 Thing 디바이스로 사용할 예정입니다. 다운받은 파일은 잠시후 IoT Thing 디바이스을 만든 후 디바이스에 업로드 할 예정입니다.\nIoT Core의 Secure \u0026gt; Policy 콘솔로 이동하고 앞서 생성한 MyThing과 연결된 MyThing-policy를 클릭합니다.\nEdit policy document를 클릭하여 Policy를 편집합니다.\n기존의 policy를 지우고 아래와 같이 입력 후 새버전으로 저장합니다. IoT Policy를 모든 권한을 주는 것은 위험합니다. 다만 이 워크샵은 IoT 워크샵이 아니기에 아래와 같이 설정하도록 하겠습니다.\nIoT Core에 대한 내용은 IoT core 워크샵을 통해 학습하실 수 있습니다.\n{ \u0026quot;Version\u0026quot;: \u0026quot;2012-10-17\u0026quot;, \u0026quot;Statement\u0026quot;: [ { \u0026quot;Effect\u0026quot;: \u0026quot;Allow\u0026quot;, \u0026quot;Action\u0026quot;: [ \u0026quot;iot:*\u0026quot; ], \u0026quot;Resource\u0026quot;: \u0026quot;*\u0026quot; } ] }  "
+},
+{
+	"uri": "/ko/lab3/react-package-%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A1%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/",
+	"title": "React package 추가하기",
+	"tags": [],
+	"description": "",
+	"content": "React 웹어플리케이션에서 필요한 패키지들을 설치합니다.\n다음 명령어를 이용하여 aws-amplify과 @aws-amplify/ui-react 를 설치합니다. aws-amplify 패키지는 amplify를 위한 main 라이브리리 입니다. React specific UI components를 위해 @aws-amplify/ui-react도 설치합니다.\nnpm install aws-amplify @aws-amplify/ui-react  그리고, 게이지차트와 일부 UI패키지를 위해 다음 명령어를 이용하여 추가 설치합니다.\nnpm install --save semantic-ui-react react-d3-speedometer  "
+},
+{
+	"uri": "/ko/lab0/amplify/",
+	"title": "Amplify",
+	"tags": [],
+	"description": "",
+	"content": " Amplify란? 데이터 레이크는 모든 규모의 정형 및 비 정형 데이터를 저장할 수 있는 중앙 집중식 저장소입니다. 데이터를 먼저 구조화 하지 않고도 데이터를 있는 그대로 저장하고 대시보드 및 시각화, 빅데이터 처리, 실시간 분석 및 머신 러닝에 이르기까지 다양한 유형의 분석을 실행하여 더 나은 의사 결정을 내릴 수 있습니다. Data Lake vs Data Warehouse 일반적인 기업은 서로 다른 요구와 사용 사례를 제공하는 데이터 웨어하우스와 데이터 레이크가 모두 필요합니다. 데이터 웨어하우스는 트랜잭션 시스템 및 업무용 애플리케이션에서 생성하는 관계형 데이터를 분석하도록 최적화 된 데이터베이스입니다. 따라서 데이터의 구조 및 스키마를 미리 정의하여 빠른 SQL 쿼리를 실행하도록 설계되었으며, 일반적으로 운영 보고 및 분석을 목적으로 사용합니다. 그리고 데이터는 잘 가공 및 정리가 된 상태이므로 사용자가 신뢰할 수 있는 단일 소스 역할을 수행할 수 있습니다.\n데이터 레이크는 업무용 애플리케이션의 관계형 데이터뿐만 아니라 모바일 앱, IoT 장치 및 소셜 미디어의 비 관계형 데이터를 저장할 수 있기 때문에 데이터 웨어하우스의 접근 방식과 다릅니다. 데이터의 구조 및 스키마를 미리 정의하지 않고, 데이터를 수집한 이후에 어떻게 활용할지 고민합니다. 즉, 미리 스키마를 정의할 필요가 없기 때문에 신중하게 디자인할 필요가 없고 향후 어떤 질문에 대답해야 하는지 미리 알 필요가 없습니다. 데이터 레이크에서 통찰력을 얻기 위해 SQL 쿼리, 빅데이터 분석, Full-text 검색, 실시간 분석 및 머신 러닝과 같은 데이터에 대한 다양한 유형의 분석을 수행할 수 있습니다.\n데이터 웨어하우스를 운영하고 있는 기업들은 데이터 레이크의 이러한 이점을 인식하기 시작하면서 기존의 데이터 웨어하우스를 발전시키기 위해 데이터 레이크를 데이터 분석 아키텍처에 포함시켜 다양한 쿼리 기능 및 데이터 사이언스 사용 사례를 지원하고 있습니다.\n"
+},
+{
+	"uri": "/ko/lab0/appsync/",
+	"title": "AppSync",
+	"tags": [],
+	"description": "",
+	"content": " AppSync AWS Lake Formation은 안전한 데이터 레이크를 손쉽게 설정할 수 있도록 지원하는 서비스입니다. 데이터 레이크는 모든 데이터를 원래 형식 및 분석에 필요한 형식으로 큐레이션 하여 저장합니다. 데이터 레이크를 사용하면 데이터 사일로를 없애고 다양한 유형의 분석을 조합하여 통찰력을 얻을 수 있으며 더 나은 비즈니스 결정을 내릴 수 있습니다.\n하지만 데이터 레이크를 수동으로 설정하고 관리하기 위해서는 수많은 복잡하고 시간 소모적인 작업이 필요합니다. 이러한 작업에는 다양한 소스로부터 데이터 로딩, 데이터 흐름 모니터링, 파티션 설정, 암호화 설정 및 키 관리, 변환 작업 정의 및 운영 모니터링, 컬럼 기반 형식으로 데이터 재구성, 액세스 제어 설정 구성, 중복 데이터 제거, 데이터 세트에 대한 액세스 권한 부여, 추후 액세스 감사 등이 포함됩니다.\nAWS Lake Formation을 사용하여 데이터 레이크를 구축하면 다음과 같은 기능을 통해 데이터 레이크 구축 시간을 수 개월에서 몇 주 또는 며칠로 단축할 수 있습니다. - 데이터 수집, 정제, 변환 및 분류 - 데이터 카탈로그 및 검색 인덱싱 - 데이터 분석 - 테이블 및 컬럼 레벨의 데이터 보안 - 중앙 위치에서 데이터 엑세스 관리 - 데이터 플로우 오케스트레이션\nAWS Lake Formation 작동 방식 Lake Formation은 Amazon S3, 관계형 데이터베이스 및 NoSQL 데이터베이스와 같은 기존 데이터 소스를 식별하고 Lake Formation이 관리하는 S3 데이터 레이크 경로로 데이터를 수집합니다. 그런 다음 데이터 분석을 수행할 수 있게 데이터를 크롤링 및 카탈로그화하고, 데이터의 대한 액세스 권한을 설정하여 데이터를 준비합니다. 이 과정이 마무리되면 사용자는 사용 가능한 데이터 세트를 사용자가 원하는 분석 서비스 (Amazon Athena, Amazon Redshift, Amazon EMR 등)를 이용하여 중앙 집중식 데이터 카탈로그를 통해 안전하게 액세스할 수 있습니다. 다른 AWS 서비스 및 3rd party 애플리케이션도 표시된 AWS 분석 서비스를 통해 데이터에 액세스할 수 있습니다. 즉, Lake Formation은 주황색 상자의 모든 작업을 관리하며 파랑색 상자에 표시된 데이터 저장소 및 서비스와 통합됩니다.\n"
+},
+{
+	"uri": "/ko/lab1/amplify-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%92%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/",
+	"title": "Amplify 개발환경 만들기",
+	"tags": [],
+	"description": "",
+	"content": "Amplify 개발환경을 만들고 Web application을 만들어 보겠습니다.\nAmplify 개발환경은 여러분 PC에서 구성하셔도 되지만 본 워크샵에서는 Cloud9 IDE에서 개발하도록 하겠습니다.\nconsole에서 Cloud9으로 이동합니다.\n\u0026ldquo;Create environment\u0026rdquo;를 클릭하고, Name에 device이름을 넣습니다. (아무이름이나 상관없습니다.) Next Step을 클릭합니다. 나머지는 default설정을 유지한 채 마지막 \u0026ldquo;Create environment\u0026rdquo; 버튼을 통해 Cloud9을 생성합니다. 잠시 후 Cloud9 IDE로 이동된 것을 보실 수 있습니다. 오른쪽 상단 맨끝에 설정 버튼(톱니바퀴 아이콘)을 클릭합니다. Preferences화면이 나타나고 AWS Setting로 이동합니다. Credentials를 on -\u0026gt; off로 변경합니다. 변경 후 모습은 아래와 같습니다. 레이아웃을 본인에게 맞게 커스터마이징 합니다. 예를 들어 아래와 같이 모든 창을 닫고 하나의 terminal 만 열어두었습니다.\nCloud9 의 볼륨은 기본 10GB가 제공됩니다. 실습 환경에서 디스크 저장 공간을 확보하기 위하여 20GB로 늘리도록 하겠습니다. console-\u0026gt;EC2 -\u0026gt;Elastic block store -\u0026gt; Volumns 이동 후 해당 EBS를 선택하신 후 아래 같이 Modify Volume을 선택합니다.\nSize에 20을 입력하고, Modify를 클릭합니다. Modify Volume 확인창에서 Yes를 클릭합니다.\nModify Volume 이 성공하면 아래와 같은 창이 보여집니다. Cloud9IDE 에서 아래 두 줄의 명령을 실행하여, 볼륨의 사이즈를 조정해 줍니다.\nsudo growpart /dev/xvda 1 sudo resize2fs /dev/xvda1  그리고, 아래 명령을 통해 20GB로 늘어난 것을 확인할 수 있습니다.\ndf -h  이제 개발에 필요한 도구들을 설치합니다. 먼저 다음 명령어를 이용하여 Amplify CLI를 설치합니다.\nnpm install -g @aws-amplify/cli  설치가 완료되면 amplify 환경설정을 합니다.\namplify configure  입력해야하는 값은 다음을 참고하여 하나씩 넣습니다.\n만약 기존의 본인이 가지고 있던 IAM User를 사용하고 싶다면 새로운 유저를 생성할지 묻는 답변에 N를 하시고 본인의 IAM User정보를 입력하시면 됩니다.\n Specify the AWS Region ? region: # Your preferred region Specify the username of the new IAM user: ? user name: # User name for Amplify IAM user Complete the user creation using the AWS console  유저를 생성할것이냐고 묻는 부분에서 Yes를 입력합니다. IAM user를 만들기 위한 console로 이동하는 url이 나오게 되는데, 링크를 누르고 open을 선택하시면 console로 이동됩니다. 이동 후 default설정으로 아래와 같이 마지막 단계까지 진행합니다. 마지막 화면에서는 csv다운로드를 선택하여 생성한 IAM user의 정보를 다운로드 합니다. 다시 콘솔로 돌아와서 accessKeyId, secretAccessKey 값에 방금 다운로드한 csv파일을 열어 해당정보를 넣습니다.\nEnter the access key of the newly created user: ? accessKeyId: # YOUR_ACCESS_KEY_ID ? secretAccessKey: # YOUR_SECRET_ACCESS_KEY This would update/create the AWS Profile in your local machine ? Profile Name: # (default) Successfully set up the new user.  최종모습은 아래와 유사하게 나오니다. (리전, 사용자 이름등은 여러분의 것으로 변경하셔야 합니다.) "
+},
+{
+	"uri": "/ko/lab1/react-app-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/",
+	"title": "React App 만들기",
+	"tags": [],
+	"description": "",
+	"content": "이제 React 어플리케이션을 만들어 보겠습니다. 이 앱을 base로 벡엔드를 만들고 프론트 엔드 를 확장할 예정입니다.\nReact 앱은 다음 명령어를 사용하여 생성합니다. 다음 명령어를 사용하기 위해서는 Node.js와 npm등 몇가지 도구가 필요하나 Cloud9 IDE에는 이미 내장이 되어있습니다. 만약 Cloud9이 아닌 로컬PC환경에서 개발하신다면 React 공식 페이지를 참고하셔서 개발환경을 셋팅하시기 바랍니다.\nnpx create-react-app react-amplified cd react-amplified  위 명령어로 react-amplified 라는 이름으로 React App이 생성되었습니다. 이제 앱을 실행하였습니다.\nnpm start  앱이 실행되었음을 메시지로 확인가능합니다. 앱을 실제로 브라우저에서 띄워보기 위해 상단에 있는 Preview -\u0026gt; Preview Running Application을 선택합니다. 아래처럼 앱을 보실 수 있습니다.\n"
+},
+{
+	"uri": "/ko/lab2/",
+	"title": "AWS IoT 환경 구성",
+	"tags": [],
+	"description": "",
+	"content": "본 워크샵에 필요한 IoT 환경을 구성합니다. 실제 스마트팩토리에서 데이타가 올라오는것을 시뮬레이션 하기 위해 Cloud9을 IoT Thing으로 활용하고, 주기적으로 MQTT메시지를 Cloud9에서 AWS IoT Core로 publish하는 환경을 만듭니다.\n전체 아키텍처 중 붉은 색 박스에 앞단에 해당됩니다.\n"
+},
+{
+	"uri": "/ko/lab2/thing-device%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/",
+	"title": "Thing Device만들기",
+	"tags": [],
+	"description": "",
+	"content": "Cloud9을 IoT Thing 디바이스로 만들기\nIoT Device의 역할을 할 cloud9인스턴스를 생성합니다.\n이를 위해 console에서 Cloud9으로 이동합니다.\n\u0026ldquo;Create environment\u0026rdquo;를 클릭하고, Name에 device이름을 넣습니다. (아무이름이나 상관없습니다.) Next Step을 클릭합니다. 나머지는 default설정을 유지한 채 마지막 \u0026ldquo;Create environment\u0026rdquo; 버튼을 통해 Cloud9을 생성합니다. 잠시 후 Cloud9 IDE로 이동된 것을 보실 수 있습니다. 레이아웃을 본인에게 맞게 커스터마이징 합니다. 예를 들어 아래와 같이 모든 창을 닫고 하나의 terminal 만 열어두었습니다.\n앞 장에서 IoT Core -다운로드 받은 파일을 Cloud9, 즉, Thing Device로 업로드합니다.\nCloud9 IDE에서 terminal을 열고 다음 Step대로 진행합니다.\nunzip connect_device_package.zip  chmod +x start.sh  start.sh 스크립트에는 AWS IoT SDK를 설치하는 과정이 포함되어있습니다. IoT Thing Device에서는 AWS IoT SDK를 사용하면 매우 편리하게 IoT Core와 통신할 수 있는 라이브러리를 지원받을 수 있습니다. 이때 먼저 업로드 했던 인증서 및 private key등을 이용하여 토픽을 발행합니다. Cloud9 IDE에서 AWSIoTPythonSDK 설치 권한을 얻기 위하여 반드시 sudo를 포함하여 아래 명령을 실행합니다.\nsudo ./start.sh  start.sh를 실행시키시면 아래 화면과 같이 Cloud9 IDE에서 sdk/test/Python이라는 Topic으로 MQTT 메시지를 publish하는 것을 보실 수 있습니다.\n[IoT Core \u0026gt; Test] 로 이동 후, sdk/test/Python이라는 Topic을 subscribe합니다.\n그리고, Cloud9 IDE에서 publish하는 MQTT 메시지가 정상적으로 수신되는지 확인합니다.\nMQTT 메시지가 정상적으로 수신되는지 확인이 완료되면, Cloud9 IDE에서 Ctrl + C를 입력하여 start.sh를 종료합니다.\n"
+},
+{
+	"uri": "/ko/lab1/amplify-%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%92%E1%85%AA/",
+	"title": "Amplify 초기화",
+	"tags": [],
+	"description": "",
+	"content": "구동중인 React App은 잠시 중단하도록 하겠습니다. (ctrl+c)\nAmplify CLI를 이용하여 AWS다양한 서비스를 application의 백엔드 생성을 위해 amplify project을 초기화 해야합니다.\napplication의 home 에서 다음 명령어를 수행합니다.\namplify init  입력값은 다음을 참고하여 넣습니다.\n1~2분 후 초기화가 완료되면 다음 장으로 넘어갑니다.\n"
+},
+{
+	"uri": "/ko/lab3/",
+	"title": "Application Frontend 만들기",
+	"tags": [],
+	"description": "",
+	"content": "이제 IoT 디바이스에서 보내진 데이타를 모니터링 할 수 있는 React기반의 Application을 만들어보겠습니다.\n실제 스마트팩토리 데모에서 만들었던 Application은 모바일 application이었습니다만, 워크샵으로 진행하기 쉽게 웹 application으로 만들었으며, 전체 기능은 축소해서 진행하고 있습니다. (추후 모바일 application의 전 기능을 구현하는 워크샵으로 업데이트 예정입니다.)\n전체 아키텍처 중 붉은 색 박스에 뒷단에 해당됩니다.\n"
+},
+{
+	"uri": "/ko/lab2/%E1%84%90%E1%85%A9%E1%84%91%E1%85%B5%E1%86%A8%E1%84%89%E1%85%B5%E1%84%86%E1%85%B2%E1%86%AF%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB/",
+	"title": "토픽시뮬레이션",
+	"tags": [],
+	"description": "",
+	"content": "지금까지 우리는 Cloud9을 IoT Device Thing로 설정하였고, Hello world라는 토픽을 python스크립트를 이용, 생성해서 IoT Core로 전달하고 전달된 것을 확인하는 과정을 진행했습니다.\n이제 우리는 Hello World라는 토픽대신 실제 조금 더 많은 메시지를 전달해보도록 하겠습니다. 이를 위해 미리 생성한 python코드를 다운로드 받습니다.\ngit clone https://github.com/xmrrh/sensor-data-simulator  이제 start.sh를 수정하여 새로 받은 스크립트를 실행해보겠습니다. 왼쪽 디렉토리에서 start.sh파일을 더블클릭합니다.\nstart.sh파일에서 맨아래 python 실행코드를 copy해서 붙여넣고 기존 코드는 주석(#)처리 합니다. 그리고 실행시킬 python을 sensor-data-simulator/pubsub_simulator_inference.py 로 변경합니다. 그리고 사용할 토픽을 추가로 넣습니다. (\u0026ndash;topic iot/sensors)\n인증서 및 KEY는 여러분이 IoT Core로부터 다운받은 것을 그대로 사용해야합니다. 아래 코드는 참고용입니다. 파일명과 토픽만 추가하세요.\n#python aws-iot-device-sdk-python/samples/basicPubSub/basicPubSub.py -e a8p3rfcssiffj-ats.iot.eu-west-2.amazonaws.com -r root-CA.crt -c MyThing.cert.pem -k MyThing.private.key python sensor-data-simulator/pubsub_simulator_inference.py -e a8p3rfcssiffj-ats.iot.eu-west-2.amazonaws.com -r root-CA.crt -c MyThing.cert.pem -k MyThing.private.key --topic iot/sensors  start.sh를 실행시키시면 아래 화면과 같이 Cloud9 IDE에서 iot/sensors이라는 Topic으로 MQTT 메시지를 publish하는 것을 보실 수 있습니다.\n[IoT Core \u0026gt; Test] 로 이동 후, iot/sensors이라는 Topic을 subscribe합니다.\n그리고, Cloud9 IDE에서 publish하는 MQTT 메시지가 정상적으로 수신되는지 확인합니다.\nMQTT 메시지가 정상적으로 수신되는지 확인이 완료되면, Cloud9 IDE에서 Ctrl + C를 입력하여 start.sh를 종료합니다.\n"
+},
+{
+	"uri": "/ko/lab2/aws-iot-rule%E1%84%8B%E1%85%A6%E1%86%AB%E1%84%8C%E1%85%B5%E1%86%AB-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/",
+	"title": "AWS IoT Rule엔진 만들기",
+	"tags": [],
+	"description": "",
+	"content": " Rule 생성 AWS IoT Core의 Act \u0026gt; Rules 콘솔로 이동하고 Create a rule을 클릭합니다.\n생성할 rule의 이름을 입력합니다. 예를 들어 callApi와 같이 입력한 후 스크롤을 내려 다음 항목으로 이동합니다. Rule query statement에는 아래와 같이 입력합니다.\nSELECT * FROM 'iot/sensors'  Set one or more actions에서 Add action 을 클릭하여 action을 추가합니다.\nSelect an action에서 Send a message to a Lambda function을 선택하고 Configure Action 버튼을 클릭하여 다음 단계로 진행합니다. 이전 장에서 만들었던 Lambda 함수를 선택합니다. 선택 후 Add action버튼을 클릭합니다. 마지막으로 create rule 버튼을 클릭합니다. 자 이제 디바이스 Cloud9으로 돌아가서 start.sh를 실행하여 토픽을 발생시켜 보도록 하겠습니다.\nconsole-\u0026gt;Dynamodb-\u0026gt;생성된 table을 클릭합니다. 오른쪽탭에서 item을 눌러 table에 데이타가 적재되고 있는지 확인합니다. 만약 아래 처럼 적재되고 있다면 성공적으로 IoT Device에서 Dynamodb까지 데이타가 전달되었습니다. 만약 적재가 되지 않고 있다면 dynamodb로 Data를 insert 하는 람다를 확인해봐야합니다. 람다로 이동합니다. 생성한 api로 들어가서 모니터링 탭을 확인합니다. cloudwatch를 선택하시면 lambda로그를 확인하실 수 있습니다. 해당 내용을 디버깅하시고, (손을 들어주시면 도와드리겠습니다)\n문제가 수정되었다면 다시 람다를 배포해야합니다. 아래 명령어를 참고하세요.\namplify function build amplify push  다시 Dynamodb를 확인하여 정상적으로 적재된다면 이제 데이타를 보여줄 application을 작성해보겠습니다.\n"
+},
+{
+	"uri": "/ko/lab3/%E1%84%8B%E1%85%B0%E1%86%B8-%E1%84%8B%E1%85%A5%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/",
+	"title": "웹 어플리케이션 작성하기",
+	"tags": [],
+	"description": "",
+	"content": "App.js 수정하기\nApp.js로 이동하여 파일 내용을 아래와 같이 수정합니다.\nimport React from 'react'; import './App.css'; //--- import {withAuthenticator} from '@aws-amplify/ui-react'; import GaugechartBoard from './components/GaugechartBoard.js'; import {Container, Header} from 'semantic-ui-react'; import Amplify from 'aws-amplify'; import awsExports from './aws-exports'; Amplify.configure(awsExports); //- function App() { return ( \u0026lt;div style={styles}\u0026gt; \u0026lt;Container text style={{marginBottom: '1em'}}\u0026gt; \u0026lt;Header as=\u0026quot;h1\u0026quot; style={{textAlign: 'center'}}\u0026gt; IoT Dashboard \u0026lt;/Header\u0026gt; \u0026lt;/Container\u0026gt; \u0026lt;Container style={{marginTop: '2em'}}\u0026gt; \u0026lt;Header as=\u0026quot;h2\u0026quot;\u0026gt;공장 1 라인\u0026lt;/Header\u0026gt; \u0026lt;p\u0026gt;차트를 클릭하면 상세 화면을 보실 수 있습니다.(TBD...)\u0026lt;/p\u0026gt; \u0026lt;/Container\u0026gt; \u0026lt;Container style={{marginTop: '2em'}}\u0026gt; \u0026lt;GaugechartBoard /\u0026gt; \u0026lt;/Container\u0026gt; \u0026lt;Container style={{marginTop: '2em'}}\u0026gt; \u0026lt;Header as=\u0026quot;h2\u0026quot;\u0026gt;공장 2 라인\u0026lt;/Header\u0026gt; \u0026lt;p\u0026gt;사용하지 않는 차트 입니다. \u0026lt;/p\u0026gt; \u0026lt;/Container\u0026gt; \u0026lt;/div\u0026gt; ); } export default withAuthenticator(App); const styles = { marginLeft: '1em', marginRight: '1em', };  수정내용을 요약하면 다음과 같습니다.\namplify backend 연동을 위한 코드\nimport Amplify from 'aws-amplify'; import awsExports from './aws-exports'; Amplify.configure(awsExports);  회원 가입 및 인증을 위해 cognito 가입/로그인 화면 연동 :\nimport {withAuthenticator} from '@aws-amplify/ui-react'; export default withAuthenticator(App);  게이지바를 그리기 위한 custom component 생성\nimport GaugechartBoard from './components/GaugechartBoard.js'; \u0026lt;GaugechartBoard /\u0026gt;  GaugechartBoard.js 생성하기 \n이제 customer component를 작성합니다. src 디렉토리에서 customer 디렉토리를 만들고 GaugechartBoard.js를 만듭니다.\nmkdir components cd components touch GaugechartBoard.js  GaugechartBoard.js을 더블클릭 하여 열고 파일 내용을 아래와 같이 복사해서 넣습니다.\nimport React, {useEffect, useState} from 'react'; import ReactSpeedometer from 'react-d3-speedometer'; import Amplify, {API, graphqlOperation} from 'aws-amplify'; import * as subscriptions from '../graphql/subscriptions'; function GaugechartBoard() { const [wCurrentLoad, setWCurrentLoad] = useState(); const [wRMSCurrent, setWRMSCurrent] = useState(); useEffect(() =\u0026gt; { const RMSsubscription = API.graphql( graphqlOperation(subscriptions.onCreateSensor, { sensorType: 'wRMSCurrent', }), ).subscribe({ next: eventData =\u0026gt; { setWRMSCurrent(eventData.value.data.onCreateSensor.value); }, }); const Loadsubscription = API.graphql( graphqlOperation(subscriptions.onCreateSensor, { sensorType: 'wCurrentLoad', }), ).subscribe({ next: eventData =\u0026gt; { setWCurrentLoad(eventData.value.data.onCreateSensor.value); }, }); return () =\u0026gt; { RMSsubscription.unsubscribe(); Loadsubscription.unsubscribe(); }; }, []); return ( \u0026lt;div\u0026gt; wRMSCurrent \u0026lt;ReactSpeedometer width={300} height={300} maxValue={150} segments={4} value={wRMSCurrent} /\u0026gt; wCurrentLoad \u0026lt;ReactSpeedometer width={300} height={300} maxValue={150} segments={4} value={wCurrentLoad} /\u0026gt; \u0026lt;/div\u0026gt; ); } export default GaugechartBoard;  파일에 작성된 내용을 요약하면 다음과 같습니다.\nAppsync API를 생성하는 스키마에서 우리는 다음과 같이 통해 Dynamodb에 항목이 생길때마다(onCreateSensor) subscription을 하는 코드를 정의한 바 있습니다.\ntype Subscription { onCreateSensor(sensorType: String!): Sensor @aws_subscribe(mutations: [\u0026quot;createSensor\u0026quot;]) }  이를 통해 다음과 같이 항목이 추가될때마다 subscribe()함수가 호출이되고 이 부분에서 화면에 뿌려줄 값을 업데이트 하게 되면 자동으로 화면이 다시 그려지게 됩니다.\nconst RMSsubscription = API.graphql( graphqlOperation(subscriptions.onCreateSensor, { sensorType: 'wRMSCurrent', }), ).subscribe({ next: eventData =\u0026gt; { setWRMSCurrent(eventData.value.data.onCreateSensor.value); }, });  게이지바를 그리기 위해 다음과 같이 ReactSpeedometer를 추가하였습니다. value에 해당하는 부분이 위에서 업데이트했던 값을 넣어 두어 차트를 실시간으로 변경하고 있습니다.\n\u0026lt;ReactSpeedometer width={300} height={300} maxValue={150} segments={4} value={wRMSCurrent} /\u0026gt;  이제 웹 어플리케이션을 실행합니다.\nnpm start  웹어플리케이션이 시작되면 다음과 같이 로그인 화면이 보이게 됩니다. 이 화면은 amplify에서 default로 제공해주는 화면입니다. 물론 이 화면을 여러분의 화면으로 변경하실수있습니다. 여기서는 default화면을 사용하겠습니다.\nsign up을 선택하여 회원가입을 합니다. 이때 비밀번호는 특수문자+숫자+문자의 조합으로 8자이상 넣으셔야 합니다.\n입력하신 이메일로 잠시 후 confirm code가 옵니다. 이 값을 입력하시고\n생성하신 아이디와 비밀번호로 로그인하면 다음과 같은 모니터링 화면을 보실 수 있습니다. 수고하셨습니다.\n"
+},
+{
+	"uri": "/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B51/",
+	"title": "Amplify CL를 이용하여 Backend 생성하기 1",
+	"tags": [],
+	"description": "",
+	"content": "이제 IoT device를 통해 메시지가 최종적으로 저장될 dynamodb를 생성해보도록 하겠습니다. Amplify CLI를 이용하면 dynamodb를 직접 console에서 만들필요가 없는데요,\nAppsync에 dynamodb에서 사용할 스키마를 정의하면 Amplify framework을 통해 dynamodb의 테이블과 그 테이블을 access할수있는 graphql api를 자동생성할 수. 있습니다.\namplify cli의 명령어는 다음과 같이 확인 가능합니다.\n다음과 같이 명령어를 입력합니다.\namplify add api  다음을 참고하여 입력값을 넣습니다. api호출을 위해 권한이 필요하기 때문에 cognito user pool을 생성하였습니다. graphql api는 람다에서도 호출할 예정입니다. 이때는 IAM권한으로 호출할것인데요, 이를 위해 권한을 다음과 같이 추가합니다. 즉, 생성하는 graphql api 는 cognito와 iam으로 권한을 인증받겠다는 것입니다.\nConfigure additional auth types? 이 default값이 No입니다. Yes로 바꿔서 입력해야합니다. 주의하세요!\n다음 입력값도 아래을 참고하여 넣습니다. 마지막에 schema을 편집할것인지 묻는데, yes를 누르면 스키마를 넣을수있습니다. 샘플로 제시된 스키마를 모두 지우고 아래 스키마로 입력 저장후 wq로 빠져나오게 되면 amplify add api 가 완료됩니다.\ntype Sensor @model(subscriptions: null) @key(fields: [\u0026quot;sensorType\u0026quot;, \u0026quot;timestamp\u0026quot;]) @auth( rules: [ {allow: private, provider: iam} {allow: private, provider: userPools} ] ) { id: ID! sensorType: String! value: Float! isWarning: Boolean! timestamp: AWSTimestamp! } type Subscription { onCreateSensor(sensorType: String!): Sensor @aws_subscribe(mutations: [\u0026quot;createSensor\u0026quot;]) }  다음 명령어로 amplify add api의 결과를 살펴봅니다.\namplify status  이제 다음명령어로 실제 AWS의 벡앤드서비스가 생성이 됩니다.\namplify push  필요한 입력값은 아래를 참고하여 넣으세요(default설정). 약 10분 정도 후에 완료됩니다. 다시 amplify status를 해봅니다. 상태가 변경된 것을 확인하실 수 있습니다.\namplify status  실제 백엔드에 서비스가 생성되었는지 확인을 해보도록 하겠습니다. console-\u0026gt;appsync, console-\u0026gt;dynamodb에 가보시면 각각 생성된 것을 확인하실 수 있습니다.\n소스로 돌아가 보면 벡앤드에 필요한 다양한 파일들이 생성된것을 확인하실 수 있습니다. 그중 aws-exports.js는 벡엔드에 대한 mata data를 담고 있는 파일입니다.\n"
+},
+{
+	"uri": "/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B52/",
+	"title": "Amplify CL를 이용하여 Backend 생성하기2",
+	"tags": [],
+	"description": "",
+	"content": "이제 graphql api를 호출하여 dynamodb에 센서데이타를 insert하기 위한 lambda함수를 만들어보겠습니다.\nlambda함수는 다음과 같이 생성하실 수 있습니다.\namplify add function  입력값은 다음을 참고하세요. 람다에서 다른 리소스를 참조할거냐는 질문에는 api라고 답합니다. 이전에 만들었던 graphql api를 참조하기 때문입니다. api선택은 커서를 이동시키고 스페이스바를 누르면 선택됩니다. CRUD를 선택하는데 있어서 a를 누르면 모두 선택되고, 스페이스바를 통해서 각각 하셔도 됩니다.\n이제 람다 함수를 작성합니다. Cloud9에서 amplify-\u0026gt;backend-\u0026gt;function-\u0026gt;function-name-\u0026gt;src-\u0026gt;index.js파일을 더블클릭합니다.\nindex.js파일을 아래 내용으로 교체합니다. 이때 리전과 GRAPHQLAPIENDPOINTOUTPUT 환경변수의 이름에 주의하셔야 합니다. 리전은 사용하신 리전을 넣고, GRAPHQLAPIENDPOINTOUTPUT는 앱 프로젝트 명을 대문자로 주셔야 합니다. 만약 -가 들어가있다면 제외되고 넣으시면 됩니다.\nex) react-amplified \u0026ndash;\u0026gt; API_REACTAMPLIFIED_GRAPHQLAPIENDPOINTOUTPUT\n/* Amplify Params - DO NOT EDIT API_REACTAMPLIFIED_GRAPHQLAPIENDPOINTOUTPUT API_REACTAMPLIFIED_GRAPHQLAPIIDOUTPUT ENV REGION Amplify Params - DO NOT EDIT */ const AWS = require('aws-sdk'); const appsync = require('aws-appsync'); const gql = require('graphql-tag'); require('isomorphic-fetch'); const lambda = new AWS.Lambda({ region: 'ap-northeast-2', }); AWS.config.update({ region: process.env.REGION, }); const credentials = AWS.config.credentials; exports.handler = (event, context, callback) =\u0026gt; { const graphqlClient = new appsync.AWSAppSyncClient({ url: process.env.API_REACTAMPLIFIED_GRAPHQLAPIENDPOINTOUTPUT, region: process.env.REGION, auth: { type: 'AWS_IAM', credentials: credentials, }, disableOffline: true, }); const createSensor = gql` mutation CreateSensor( $input: CreateSensorInput! $condition: ModelSensorConditionInput ) { createSensor(input: $input, condition: $condition) { id sensorType value isWarning timestamp createdAt updatedAt } } `; var real = JSON.stringify(event); var jsonObj = JSON.parse(real); const timestamp = new Date(jsonObj.sDateTime).valueOf(); try { Object.keys(jsonObj).map(async function(index) { { if ( index === 'rVibration_Temp' || index === 'rVibration_Z_RMS_Velocity' || index === 'rVibration_X_RMS_Velocity' || index === 'wRMSCurrent' || index === 'wCurrentLoad' || index === 'wEncoderVelocity' || index === 'wCylinderStatus' ) { console.log('insert ' + index + 'value = ' + jsonObj[index]); await graphqlClient.mutate({ mutation: createSensor, variables: { input: { id: '0001', sensorType: index, value: jsonObj[index], isWarning: false, timestamp: timestamp, }, }, }); } } }); const response = { statusCode: 200, body: JSON.stringify({message: 'Success'}), }; return response; } catch (err) { console.log('an error occured' + err.message); const response = { statusCode: 400, body: JSON.stringify({message: err.message}), }; return response; } };  Cloud9에서 amplify-\u0026gt;backend-\u0026gt;function-\u0026gt;function-name-\u0026gt;src-\u0026gt;package.json파일을 더블클릭합니다. 다음과 같이 람다에서 필요한 패키지를 넣어줍니다.\n\u0026quot;dependencies\u0026quot;: { \u0026quot;aws-appsync\u0026quot;: \u0026quot;^2.0.0\u0026quot;, \u0026quot;graphql\u0026quot;: \u0026quot;^14.5.5\u0026quot;, \u0026quot;graphql-tag\u0026quot;: \u0026quot;^2.10.1\u0026quot;, \u0026quot;isomorphic-fetch\u0026quot;: \u0026quot;^2.2.1\u0026quot; },  최종 다음과 같습니다.\n이제 저장하고, 다음 명령어를 입력합니다.\namplify function build  완료 후 src 밑에 node_modules폴더가 추가되었는지 확인하고 생성이 안되어있다면 dist폴더를 지우고 다시 시도합니다.\n이제 amplify push해 줍니다.\namplify push  몇분 후 console-\u0026gt;lambda 에 들어가보시면 새로운 람다가 생성된 것을 확인하실수있습니다.\n"
+},
+{
+	"uri": "/ko/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/ko/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/ko/credits/",
+	"title": "크레딧",
+	"tags": [],
+	"description": "",
+	"content": " 패키지와 라이브러리  mermaid - generation of diagram and flowchart from text in a similar manner as markdown font awesome - the iconic font and CSS framework jQuery - The Write Less, Do More, JavaScript Library lunr - Lunr enables you to provide a great search experience without the need for external, server-side, search services\u0026hellip; horsey - Progressive and customizable autocomplete component clipboard.js - copy text to clipboard highlight.js - Javascript syntax highlighter modernizr - A JavaScript toolkit that allows web developers to use new CSS3 and HTML5 features while maintaining a fine level of control over browsers that don\u0026rsquo;t support  도구  Netlify - Continuous deployement and hosting of this documentation Hugo  제작: Daniel You\n"
+}]

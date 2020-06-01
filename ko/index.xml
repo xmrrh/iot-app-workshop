@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AWS IoT Application 워크샵 on Hugo 템플릿 활용하기</title>
+    <link>/ko/</link>
+    <description>Recent content in AWS IoT Application 워크샵 on Hugo 템플릿 활용하기</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 05 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/ko/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AWS IoT Core 설정하기</title>
+      <link>/ko/lab2/aws-iot-core-%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab2/aws-iot-core-%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</guid>
+      <description>IoT Core에 IoT Thing 만들기
+IoT core에서 Thing을 생성합니다. ioT Core console로 이동한 후 Onboard a device에서 Get Started를 클릭합니다. 다음 화면에서 Get Started를 클릭하여 진행합니다.
+Platform과 AWS IoT Device SDK에 사용하실 언어를 선택할 수 있습니다. 본 실습에서는 Linux/OSX 와 Python 을 선택합니다. 그리고, Next를 클릭하여 다음 단계로 진행합니다.
+Thing(사물)의 이름을 지정하고 등록합니다. 예를 들어 MyThing으로 지정하실 수 있습니다. Next step을 클릭하여 다음 단계로 진행합니다.
+Download connection kit for 아래의 버튼을 클릭하여, public key, private key, 인증서와 예제 script를 다운로드 받습니다.</description>
+    </item>
+    
+    <item>
+      <title>React package 추가하기</title>
+      <link>/ko/lab3/react-package-%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A1%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab3/react-package-%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A1%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</guid>
+      <description>React 웹어플리케이션에서 필요한 패키지들을 설치합니다.
+다음 명령어를 이용하여 aws-amplify과 @aws-amplify/ui-react 를 설치합니다. aws-amplify 패키지는 amplify를 위한 main 라이브리리 입니다. React specific UI components를 위해 @aws-amplify/ui-react도 설치합니다.
+npm install aws-amplify @aws-amplify/ui-react  그리고, 게이지차트와 일부 UI패키지를 위해 다음 명령어를 이용하여 추가 설치합니다.
+npm install --save semantic-ui-react react-d3-speedometer  </description>
+    </item>
+    
+    <item>
+      <title>Amplify 개발환경 만들기</title>
+      <link>/ko/lab1/amplify-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%92%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/amplify-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%92%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <description>Amplify 개발환경을 만들고 Web application을 만들어 보겠습니다.
+Amplify 개발환경은 여러분 PC에서 구성하셔도 되지만 본 워크샵에서는 Cloud9 IDE에서 개발하도록 하겠습니다.
+console에서 Cloud9으로 이동합니다.
+&amp;ldquo;Create environment&amp;rdquo;를 클릭하고, Name에 device이름을 넣습니다. (아무이름이나 상관없습니다.) Next Step을 클릭합니다. 나머지는 default설정을 유지한 채 마지막 &amp;ldquo;Create environment&amp;rdquo; 버튼을 통해 Cloud9을 생성합니다. 잠시 후 Cloud9 IDE로 이동된 것을 보실 수 있습니다. 오른쪽 상단 맨끝에 설정 버튼(톱니바퀴 아이콘)을 클릭합니다. Preferences화면이 나타나고 AWS Setting로 이동합니다. Credentials를 on -&amp;gt; off로 변경합니다. 변경 후 모습은 아래와 같습니다.</description>
+    </item>
+    
+    <item>
+      <title>React App 만들기</title>
+      <link>/ko/lab1/react-app-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/react-app-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <description>이제 React 어플리케이션을 만들어 보겠습니다. 이 앱을 base로 벡엔드를 만들고 프론트 엔드 를 확장할 예정입니다.
+React 앱은 다음 명령어를 사용하여 생성합니다. 다음 명령어를 사용하기 위해서는 Node.js와 npm등 몇가지 도구가 필요하나 Cloud9 IDE에는 이미 내장이 되어있습니다. 만약 Cloud9이 아닌 로컬PC환경에서 개발하신다면 React 공식 페이지를 참고하셔서 개발환경을 셋팅하시기 바랍니다.
+npx create-react-app react-amplified cd react-amplified  위 명령어로 react-amplified 라는 이름으로 React App이 생성되었습니다. 이제 앱을 실행하였습니다.
+npm start  앱이 실행되었음을 메시지로 확인가능합니다.</description>
+    </item>
+    
+    <item>
+      <title>Thing Device만들기</title>
+      <link>/ko/lab2/thing-device%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab2/thing-device%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <description>Cloud9을 IoT Thing 디바이스로 만들기
+IoT Device의 역할을 할 cloud9인스턴스를 생성합니다.
+이를 위해 console에서 Cloud9으로 이동합니다.
+&amp;ldquo;Create environment&amp;rdquo;를 클릭하고, Name에 device이름을 넣습니다. (아무이름이나 상관없습니다.) Next Step을 클릭합니다. 나머지는 default설정을 유지한 채 마지막 &amp;ldquo;Create environment&amp;rdquo; 버튼을 통해 Cloud9을 생성합니다. 잠시 후 Cloud9 IDE로 이동된 것을 보실 수 있습니다. 레이아웃을 본인에게 맞게 커스터마이징 합니다. 예를 들어 아래와 같이 모든 창을 닫고 하나의 terminal 만 열어두었습니다.
+앞 장에서 IoT Core -다운로드 받은 파일을 Cloud9, 즉, Thing Device로 업로드합니다.</description>
+    </item>
+    
+    <item>
+      <title>Amplify 초기화</title>
+      <link>/ko/lab1/amplify-%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%92%E1%85%AA/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/amplify-%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%92%E1%85%AA/</guid>
+      <description>구동중인 React App은 잠시 중단하도록 하겠습니다. (ctrl+c)
+Amplify CLI를 이용하여 AWS다양한 서비스를 application의 백엔드 생성을 위해 amplify project을 초기화 해야합니다.
+application의 home 에서 다음 명령어를 수행합니다.
+amplify init  입력값은 다음을 참고하여 넣습니다.
+1~2분 후 초기화가 완료되면 다음 장으로 넘어갑니다.</description>
+    </item>
+    
+    <item>
+      <title>토픽시뮬레이션</title>
+      <link>/ko/lab2/%E1%84%90%E1%85%A9%E1%84%91%E1%85%B5%E1%86%A8%E1%84%89%E1%85%B5%E1%84%86%E1%85%B2%E1%86%AF%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab2/%E1%84%90%E1%85%A9%E1%84%91%E1%85%B5%E1%86%A8%E1%84%89%E1%85%B5%E1%84%86%E1%85%B2%E1%86%AF%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB/</guid>
+      <description>지금까지 우리는 Cloud9을 IoT Device Thing로 설정하였고, Hello world라는 토픽을 python스크립트를 이용, 생성해서 IoT Core로 전달하고 전달된 것을 확인하는 과정을 진행했습니다.
+이제 우리는 Hello World라는 토픽대신 실제 조금 더 많은 메시지를 전달해보도록 하겠습니다. 이를 위해 미리 생성한 python코드를 다운로드 받습니다.
+git clone https://github.com/xmrrh/sensor-data-simulator  이제 start.sh를 수정하여 새로 받은 스크립트를 실행해보겠습니다. 왼쪽 디렉토리에서 start.sh파일을 더블클릭합니다.
+start.sh파일에서 맨아래 python 실행코드를 copy해서 붙여넣고 기존 코드는 주석(#)처리 합니다. 그리고 실행시킬 python을 sensor-data-simulator/pubsub_simulator_inference.py 로 변경합니다.</description>
+    </item>
+    
+    <item>
+      <title>AWS IoT Rule엔진 만들기</title>
+      <link>/ko/lab2/aws-iot-rule%E1%84%8B%E1%85%A6%E1%86%AB%E1%84%8C%E1%85%B5%E1%86%AB-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab2/aws-iot-rule%E1%84%8B%E1%85%A6%E1%86%AB%E1%84%8C%E1%85%B5%E1%86%AB-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <description>Rule 생성 AWS IoT Core의 Act &amp;gt; Rules 콘솔로 이동하고 Create a rule을 클릭합니다.
+생성할 rule의 이름을 입력합니다. 예를 들어 callApi와 같이 입력한 후 스크롤을 내려 다음 항목으로 이동합니다. Rule query statement에는 아래와 같이 입력합니다.
+SELECT * FROM &#39;iot/sensors&#39;  Set one or more actions에서 Add action 을 클릭하여 action을 추가합니다.
+Select an action에서 Send a message to a Lambda function을 선택하고 Configure Action 버튼을 클릭하여 다음 단계로 진행합니다. 이전 장에서 만들었던 Lambda 함수를 선택합니다.</description>
+    </item>
+    
+    <item>
+      <title>웹 어플리케이션 작성하기</title>
+      <link>/ko/lab3/%E1%84%8B%E1%85%B0%E1%86%B8-%E1%84%8B%E1%85%A5%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab3/%E1%84%8B%E1%85%B0%E1%86%B8-%E1%84%8B%E1%85%A5%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8F%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</guid>
+      <description>App.js 수정하기
+App.js로 이동하여 파일 내용을 아래와 같이 수정합니다.
+import React from &#39;react&#39;; import &#39;./App.css&#39;; //--- import {withAuthenticator} from &#39;@aws-amplify/ui-react&#39;; import GaugechartBoard from &#39;./components/GaugechartBoard.js&#39;; import {Container, Header} from &#39;semantic-ui-react&#39;; import Amplify from &#39;aws-amplify&#39;; import awsExports from &#39;./aws-exports&#39;; Amplify.configure(awsExports); //- function App() { return ( &amp;lt;div style={styles}&amp;gt; &amp;lt;Container text style={{marginBottom: &#39;1em&#39;}}&amp;gt; &amp;lt;Header as=&amp;quot;h1&amp;quot; style={{textAlign: &#39;center&#39;}}&amp;gt; IoT Dashboard &amp;lt;/Header&amp;gt; &amp;lt;/Container&amp;gt; &amp;lt;Container style={{marginTop: &#39;2em&#39;}}&amp;gt; &amp;lt;Header as=&amp;quot;h2&amp;quot;&amp;gt;공장 1 라인&amp;lt;/Header&amp;gt; &amp;lt;p&amp;gt;차트를 클릭하면 상세 화면을 보실 수 있습니다.</description>
+    </item>
+    
+    <item>
+      <title>Amplify CL를 이용하여 Backend 생성하기 1</title>
+      <link>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B51/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B51/</guid>
+      <description>이제 IoT device를 통해 메시지가 최종적으로 저장될 dynamodb를 생성해보도록 하겠습니다. Amplify CLI를 이용하면 dynamodb를 직접 console에서 만들필요가 없는데요,
+Appsync에 dynamodb에서 사용할 스키마를 정의하면 Amplify framework을 통해 dynamodb의 테이블과 그 테이블을 access할수있는 graphql api를 자동생성할 수. 있습니다.
+amplify cli의 명령어는 다음과 같이 확인 가능합니다.
+다음과 같이 명령어를 입력합니다.
+amplify add api  다음을 참고하여 입력값을 넣습니다. api호출을 위해 권한이 필요하기 때문에 cognito user pool을 생성하였습니다. graphql api는 람다에서도 호출할 예정입니다. 이때는 IAM권한으로 호출할것인데요, 이를 위해 권한을 다음과 같이 추가합니다.</description>
+    </item>
+    
+    <item>
+      <title>Amplify CL를 이용하여 Backend 생성하기2</title>
+      <link>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B52/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B52/</guid>
+      <description>이제 graphql api를 호출하여 dynamodb에 센서데이타를 insert하기 위한 lambda함수를 만들어보겠습니다.
+lambda함수는 다음과 같이 생성하실 수 있습니다.
+amplify add function  입력값은 다음을 참고하세요. 람다에서 다른 리소스를 참조할거냐는 질문에는 api라고 답합니다. 이전에 만들었던 graphql api를 참조하기 때문입니다. api선택은 커서를 이동시키고 스페이스바를 누르면 선택됩니다. CRUD를 선택하는데 있어서 a를 누르면 모두 선택되고, 스페이스바를 통해서 각각 하셔도 됩니다.
+이제 람다 함수를 작성합니다. Cloud9에서 amplify-&amp;gt;backend-&amp;gt;function-&amp;gt;function-name-&amp;gt;src-&amp;gt;index.js파일을 더블클릭합니다.
+index.js파일을 아래 내용으로 교체합니다. 이때 리전과 GRAPHQLAPIENDPOINTOUTPUT 환경변수의 이름에 주의하셔야 합니다.</description>
+    </item>
+    
+    <item>
+      <title>크레딧</title>
+      <link>/ko/credits/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/credits/</guid>
+      <description>패키지와 라이브러리  mermaid - generation of diagram and flowchart from text in a similar manner as markdown font awesome - the iconic font and CSS framework jQuery - The Write Less, Do More, JavaScript Library lunr - Lunr enables you to provide a great search experience without the need for external, server-side, search services&amp;hellip; horsey - Progressive and customizable autocomplete component clipboard.js - copy text to clipboard highlight.js - Javascript syntax highlighter modernizr - A JavaScript toolkit that allows web developers to use new CSS3 and HTML5 features while maintaining a fine level of control over browsers that don&amp;rsquo;t support  도구  Netlify - Continuous deployement and hosting of this documentation Hugo  제작: Daniel You</description>
+    </item>
+    
+  </channel>
+</rss>

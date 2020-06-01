@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AWS IoT 환경 구성 on Hugo 템플릿 활용하기</title>
+    <link>/ko/lab2/</link>
+    <description>Recent content in AWS IoT 환경 구성 on Hugo 템플릿 활용하기</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="/ko/lab2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AWS IoT Core 설정하기</title>
+      <link>/ko/lab2/aws-iot-core-%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab2/aws-iot-core-%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/</guid>
+      <description>IoT Core에 IoT Thing 만들기
+IoT core에서 Thing을 생성합니다. ioT Core console로 이동한 후 Onboard a device에서 Get Started를 클릭합니다. 다음 화면에서 Get Started를 클릭하여 진행합니다.
+Platform과 AWS IoT Device SDK에 사용하실 언어를 선택할 수 있습니다. 본 실습에서는 Linux/OSX 와 Python 을 선택합니다. 그리고, Next를 클릭하여 다음 단계로 진행합니다.
+Thing(사물)의 이름을 지정하고 등록합니다. 예를 들어 MyThing으로 지정하실 수 있습니다. Next step을 클릭하여 다음 단계로 진행합니다.
+Download connection kit for 아래의 버튼을 클릭하여, public key, private key, 인증서와 예제 script를 다운로드 받습니다.</description>
+    </item>
+    
+    <item>
+      <title>Thing Device만들기</title>
+      <link>/ko/lab2/thing-device%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab2/thing-device%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <description>Cloud9을 IoT Thing 디바이스로 만들기
+IoT Device의 역할을 할 cloud9인스턴스를 생성합니다.
+이를 위해 console에서 Cloud9으로 이동합니다.
+&amp;ldquo;Create environment&amp;rdquo;를 클릭하고, Name에 device이름을 넣습니다. (아무이름이나 상관없습니다.) Next Step을 클릭합니다. 나머지는 default설정을 유지한 채 마지막 &amp;ldquo;Create environment&amp;rdquo; 버튼을 통해 Cloud9을 생성합니다. 잠시 후 Cloud9 IDE로 이동된 것을 보실 수 있습니다. 레이아웃을 본인에게 맞게 커스터마이징 합니다. 예를 들어 아래와 같이 모든 창을 닫고 하나의 terminal 만 열어두었습니다.
+앞 장에서 IoT Core -다운로드 받은 파일을 Cloud9, 즉, Thing Device로 업로드합니다.</description>
+    </item>
+    
+    <item>
+      <title>토픽시뮬레이션</title>
+      <link>/ko/lab2/%E1%84%90%E1%85%A9%E1%84%91%E1%85%B5%E1%86%A8%E1%84%89%E1%85%B5%E1%84%86%E1%85%B2%E1%86%AF%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab2/%E1%84%90%E1%85%A9%E1%84%91%E1%85%B5%E1%86%A8%E1%84%89%E1%85%B5%E1%84%86%E1%85%B2%E1%86%AF%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A7%E1%86%AB/</guid>
+      <description>지금까지 우리는 Cloud9을 IoT Device Thing로 설정하였고, Hello world라는 토픽을 python스크립트를 이용, 생성해서 IoT Core로 전달하고 전달된 것을 확인하는 과정을 진행했습니다.
+이제 우리는 Hello World라는 토픽대신 실제 조금 더 많은 메시지를 전달해보도록 하겠습니다. 이를 위해 미리 생성한 python코드를 다운로드 받습니다.
+git clone https://github.com/xmrrh/sensor-data-simulator  이제 start.sh를 수정하여 새로 받은 스크립트를 실행해보겠습니다. 왼쪽 디렉토리에서 start.sh파일을 더블클릭합니다.
+start.sh파일에서 맨아래 python 실행코드를 copy해서 붙여넣고 기존 코드는 주석(#)처리 합니다. 그리고 실행시킬 python을 sensor-data-simulator/pubsub_simulator_inference.py 로 변경합니다.</description>
+    </item>
+    
+    <item>
+      <title>AWS IoT Rule엔진 만들기</title>
+      <link>/ko/lab2/aws-iot-rule%E1%84%8B%E1%85%A6%E1%86%AB%E1%84%8C%E1%85%B5%E1%86%AB-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab2/aws-iot-rule%E1%84%8B%E1%85%A6%E1%86%AB%E1%84%8C%E1%85%B5%E1%86%AB-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <description>Rule 생성 AWS IoT Core의 Act &amp;gt; Rules 콘솔로 이동하고 Create a rule을 클릭합니다.
+생성할 rule의 이름을 입력합니다. 예를 들어 callApi와 같이 입력한 후 스크롤을 내려 다음 항목으로 이동합니다. Rule query statement에는 아래와 같이 입력합니다.
+SELECT * FROM &#39;iot/sensors&#39;  Set one or more actions에서 Add action 을 클릭하여 action을 추가합니다.
+Select an action에서 Send a message to a Lambda function을 선택하고 Configure Action 버튼을 클릭하여 다음 단계로 진행합니다. 이전 장에서 만들었던 Lambda 함수를 선택합니다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Application Backend 만들기 on Hugo 템플릿 활용하기</title>
+    <link>/ko/lab1/</link>
+    <description>Recent content in Application Backend 만들기 on Hugo 템플릿 활용하기</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="/ko/lab1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Amplify 개발환경 만들기</title>
+      <link>/ko/lab1/amplify-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%92%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/amplify-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF%E1%84%92%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <description>Amplify 개발환경을 만들고 Web application을 만들어 보겠습니다.
+Amplify 개발환경은 여러분 PC에서 구성하셔도 되지만 본 워크샵에서는 Cloud9 IDE에서 개발하도록 하겠습니다.
+console에서 Cloud9으로 이동합니다.
+&amp;ldquo;Create environment&amp;rdquo;를 클릭하고, Name에 device이름을 넣습니다. (아무이름이나 상관없습니다.) Next Step을 클릭합니다. 나머지는 default설정을 유지한 채 마지막 &amp;ldquo;Create environment&amp;rdquo; 버튼을 통해 Cloud9을 생성합니다. 잠시 후 Cloud9 IDE로 이동된 것을 보실 수 있습니다. 오른쪽 상단 맨끝에 설정 버튼(톱니바퀴 아이콘)을 클릭합니다. Preferences화면이 나타나고 AWS Setting로 이동합니다. Credentials를 on -&amp;gt; off로 변경합니다. 변경 후 모습은 아래와 같습니다.</description>
+    </item>
+    
+    <item>
+      <title>React App 만들기</title>
+      <link>/ko/lab1/react-app-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/react-app-%E1%84%86%E1%85%A1%E1%86%AB%E1%84%83%E1%85%B3%E1%86%AF%E1%84%80%E1%85%B5/</guid>
+      <description>이제 React 어플리케이션을 만들어 보겠습니다. 이 앱을 base로 벡엔드를 만들고 프론트 엔드 를 확장할 예정입니다.
+React 앱은 다음 명령어를 사용하여 생성합니다. 다음 명령어를 사용하기 위해서는 Node.js와 npm등 몇가지 도구가 필요하나 Cloud9 IDE에는 이미 내장이 되어있습니다. 만약 Cloud9이 아닌 로컬PC환경에서 개발하신다면 React 공식 페이지를 참고하셔서 개발환경을 셋팅하시기 바랍니다.
+npx create-react-app react-amplified cd react-amplified  위 명령어로 react-amplified 라는 이름으로 React App이 생성되었습니다. 이제 앱을 실행하였습니다.
+npm start  앱이 실행되었음을 메시지로 확인가능합니다.</description>
+    </item>
+    
+    <item>
+      <title>Amplify 초기화</title>
+      <link>/ko/lab1/amplify-%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%92%E1%85%AA/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/amplify-%E1%84%8E%E1%85%A9%E1%84%80%E1%85%B5%E1%84%92%E1%85%AA/</guid>
+      <description>구동중인 React App은 잠시 중단하도록 하겠습니다. (ctrl+c)
+Amplify CLI를 이용하여 AWS다양한 서비스를 application의 백엔드 생성을 위해 amplify project을 초기화 해야합니다.
+application의 home 에서 다음 명령어를 수행합니다.
+amplify init  입력값은 다음을 참고하여 넣습니다.
+1~2분 후 초기화가 완료되면 다음 장으로 넘어갑니다.</description>
+    </item>
+    
+    <item>
+      <title>Amplify CL를 이용하여 Backend 생성하기 1</title>
+      <link>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B51/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B51/</guid>
+      <description>이제 IoT device를 통해 메시지가 최종적으로 저장될 dynamodb를 생성해보도록 하겠습니다. Amplify CLI를 이용하면 dynamodb를 직접 console에서 만들필요가 없는데요,
+Appsync에 dynamodb에서 사용할 스키마를 정의하면 Amplify framework을 통해 dynamodb의 테이블과 그 테이블을 access할수있는 graphql api를 자동생성할 수. 있습니다.
+amplify cli의 명령어는 다음과 같이 확인 가능합니다.
+다음과 같이 명령어를 입력합니다.
+amplify add api  다음을 참고하여 입력값을 넣습니다. api호출을 위해 권한이 필요하기 때문에 cognito user pool을 생성하였습니다. graphql api는 람다에서도 호출할 예정입니다. 이때는 IAM권한으로 호출할것인데요, 이를 위해 권한을 다음과 같이 추가합니다.</description>
+    </item>
+    
+    <item>
+      <title>Amplify CL를 이용하여 Backend 생성하기2</title>
+      <link>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B52/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/ko/lab1/aws-backend-%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B52/</guid>
+      <description>이제 graphql api를 호출하여 dynamodb에 센서데이타를 insert하기 위한 lambda함수를 만들어보겠습니다.
+lambda함수는 다음과 같이 생성하실 수 있습니다.
+amplify add function  입력값은 다음을 참고하세요. 람다에서 다른 리소스를 참조할거냐는 질문에는 api라고 답합니다. 이전에 만들었던 graphql api를 참조하기 때문입니다. api선택은 커서를 이동시키고 스페이스바를 누르면 선택됩니다. CRUD를 선택하는데 있어서 a를 누르면 모두 선택되고, 스페이스바를 통해서 각각 하셔도 됩니다.
+이제 람다 함수를 작성합니다. Cloud9에서 amplify-&amp;gt;backend-&amp;gt;function-&amp;gt;function-name-&amp;gt;src-&amp;gt;index.js파일을 더블클릭합니다.
+index.js파일을 아래 내용으로 교체합니다. 이때 리전과 GRAPHQLAPIENDPOINTOUTPUT 환경변수의 이름에 주의하셔야 합니다.</description>
+    </item>
+    
+  </channel>
+</rss>
