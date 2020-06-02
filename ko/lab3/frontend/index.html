@@ -12,20 +12,20 @@
     <title>웹 어플리케이션 작성하기 :: Hugo 템플릿 활용하기</title>
 
     
-    <link href="/css/nucleus.css?1590977770" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1590977770" rel="stylesheet">
-    <link href="/css/hybrid.css?1590977770" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1590977770" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1590977770" rel="stylesheet">
-    <link href="/css/auto-complete.css?1590977770" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1590977770" rel="stylesheet">
-    <link href="/css/theme.css?1590977770" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1590977770" rel="stylesheet">
+    <link href="/css/nucleus.css?1591075933" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1591075933" rel="stylesheet">
+    <link href="/css/hybrid.css?1591075933" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1591075933" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1591075933" rel="stylesheet">
+    <link href="/css/auto-complete.css?1591075933" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1591075933" rel="stylesheet">
+    <link href="/css/theme.css?1591075933" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1591075933" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1590977770" rel="stylesheet">
+      <link href="/css/theme-aws.css?1591075933" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1590977770"></script>
+    <script src="/js/jquery-3.3.1.min.js?1591075933"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -53,14 +53,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1590977770"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1590977770"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1591075933"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1591075933"></script>
 <script type="text/javascript">
     
         var baseurl = "\/ko";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1590977770"></script>
+<script type="text/javascript" src="/js/search.js?1591075933"></script>
 
     
   </div>
@@ -646,38 +646,86 @@
 
 <p>App.js로 이동하여 파일 내용을 아래와 같이 수정합니다.</p>
 
-<pre><code class="language-shell">import React from 'react';
-import './App.css';
+<pre><code class="language-shell">import React, { useEffect, useState } from &quot;react&quot;;
 
-//---
-import {withAuthenticator} from '@aws-amplify/ui-react';
+import ReactSpeedometer from &quot;react-d3-speedometer&quot;;
+import { Container, Header } from &quot;semantic-ui-react&quot;;
+import { Link } from &quot;react-router-dom&quot;;
 
-import GaugechartBoard from './components/GaugechartBoard.js';
+import { withAuthenticator } from &quot;@aws-amplify/ui-react&quot;;
 
-import {Container, Header} from 'semantic-ui-react';
-
-import Amplify from 'aws-amplify';
-import awsExports from './aws-exports';
+import * as subscriptions from &quot;./graphql/subscriptions&quot;;
+import Amplify, { API, graphqlOperation } from &quot;aws-amplify&quot;;
+import awsExports from &quot;./aws-exports&quot;;
 Amplify.configure(awsExports);
 
-//-
-
 function App() {
+  const [wCurrentLoad, setWCurrentLoad] = useState();
+  const [wRMSCurrent, setWRMSCurrent] = useState();
+
+  useEffect(() =&gt; {
+    const RMSsubscription = API.graphql(
+      graphqlOperation(subscriptions.onCreateSensor, {
+        sensorType: &quot;wRMSCurrent&quot;
+      })
+    ).subscribe({
+      next: eventData =&gt; {
+        setWRMSCurrent(eventData.value.data.onCreateSensor.value);
+      }
+    });
+
+    const Loadsubscription = API.graphql(
+      graphqlOperation(subscriptions.onCreateSensor, {
+        sensorType: &quot;wCurrentLoad&quot;
+      })
+    ).subscribe({
+      next: eventData =&gt; {
+        setWCurrentLoad(eventData.value.data.onCreateSensor.value);
+      }
+    });
+
+    return () =&gt; {
+      console.log(&quot;clean up in main&quot;);
+
+      RMSsubscription.unsubscribe();
+      Loadsubscription.unsubscribe();
+    };
+  }, []);
+
   return (
     &lt;div style={styles}&gt;
-      &lt;Container text style={{marginBottom: '1em'}}&gt;
-        &lt;Header as=&quot;h1&quot; style={{textAlign: 'center'}}&gt;
+      &lt;Container text style={{ marginBottom: &quot;1em&quot; }}&gt;
+        &lt;Header as=&quot;h1&quot; style={{ textAlign: &quot;center&quot; }}&gt;
           IoT Dashboard
         &lt;/Header&gt;
       &lt;/Container&gt;
-      &lt;Container style={{marginTop: '2em'}}&gt;
+      &lt;Container style={{ marginTop: &quot;2em&quot; }}&gt;
         &lt;Header as=&quot;h2&quot;&gt;공장 1 라인&lt;/Header&gt;
-        &lt;p&gt;차트를 클릭하면 상세 화면을 보실 수 있습니다.(TBD...)&lt;/p&gt;
+        &lt;p&gt;차트를 클릭하면 상세 화면을 보실 수 있습니다.&lt;/p&gt;
       &lt;/Container&gt;
-      &lt;Container style={{marginTop: '2em'}}&gt;
-        &lt;GaugechartBoard /&gt;
+      &lt;Container style={{ marginTop: &quot;2em&quot; }}&gt;
+        &lt;Link to={&quot;/detailPage?sensorType=wRMSCurrent&quot;}&gt;
+          wRMSCurrent
+          &lt;ReactSpeedometer
+            width={300}
+            height={300}
+            maxValue={150}
+            segments={4}
+            value={wRMSCurrent}
+          /&gt;
+        &lt;/Link&gt;
+        &lt;Link to={&quot;/detailPage?sensorType=wCurrentLoad&quot;}&gt;
+          wCurrentLoad
+          &lt;ReactSpeedometer
+            width={300}
+            height={300}
+            maxValue={150}
+            segments={4}
+            value={wCurrentLoad}
+          /&gt;
+        &lt;/Link&gt;
       &lt;/Container&gt;
-      &lt;Container style={{marginTop: '2em'}}&gt;
+      &lt;Container style={{ marginTop: &quot;2em&quot; }}&gt;
         &lt;Header as=&quot;h2&quot;&gt;공장 2 라인&lt;/Header&gt;
         &lt;p&gt;사용하지 않는 차트 입니다. &lt;/p&gt;
       &lt;/Container&gt;
@@ -688,111 +736,30 @@ function App() {
 export default withAuthenticator(App);
 
 const styles = {
-  marginLeft: '1em',
-  marginRight: '1em',
+  marginLeft: &quot;1em&quot;,
+  marginRight: &quot;1em&quot;
 };
+
 
 </code></pre>
 
 <p>수정내용을 요약하면 다음과 같습니다.</p>
 
-<p>amplify backend 연동을 위한 코드</p>
+<p>1.amplify backend 연동을 위한 코드</p>
 
 <pre><code class="language-shell">import Amplify from 'aws-amplify';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 </code></pre>
 
-<p>회원 가입 및 인증을 위해 cognito 가입/로그인 화면 연동 :</p>
+<p>2.회원 가입 및 인증을 위해 cognito 가입/로그인 화면 연동 :</p>
 
 <pre><code class="language-shell">import {withAuthenticator} from '@aws-amplify/ui-react';
 export default withAuthenticator(App);
 
 </code></pre>
 
-<p>게이지바를 그리기 위한 custom component 생성</p>
-
-<pre><code class="language-shell">import GaugechartBoard from './components/GaugechartBoard.js';
- &lt;GaugechartBoard /&gt;
-</code></pre>
-
-<p><b>GaugechartBoard.js 생성하기 </b></p>
-
-<p>이제 customer component를 작성합니다.
-src 디렉토리에서 customer 디렉토리를 만들고 GaugechartBoard.js를 만듭니다.</p>
-
-<pre><code class="language-shell">mkdir components
-cd components
-touch GaugechartBoard.js
-</code></pre>
-
-<p>GaugechartBoard.js을 더블클릭 하여 열고 파일 내용을 아래와 같이 복사해서 넣습니다.</p>
-
-<pre><code class="language-shell">import React, {useEffect, useState} from 'react';
-import ReactSpeedometer from 'react-d3-speedometer';
-
-import Amplify, {API, graphqlOperation} from 'aws-amplify';
-import * as subscriptions from '../graphql/subscriptions';
-
-function GaugechartBoard() {
-  const [wCurrentLoad, setWCurrentLoad] = useState();
-  const [wRMSCurrent, setWRMSCurrent] = useState();
-
-  useEffect(() =&gt; {
-    const RMSsubscription = API.graphql(
-      graphqlOperation(subscriptions.onCreateSensor, {
-        sensorType: 'wRMSCurrent',
-      }),
-    ).subscribe({
-      next: eventData =&gt; {
-        setWRMSCurrent(eventData.value.data.onCreateSensor.value);
-      },
-    });
-
-    const Loadsubscription = API.graphql(
-      graphqlOperation(subscriptions.onCreateSensor, {
-        sensorType: 'wCurrentLoad',
-      }),
-    ).subscribe({
-      next: eventData =&gt; {
-        setWCurrentLoad(eventData.value.data.onCreateSensor.value);
-      },
-    });
-
-    return () =&gt; {
-      RMSsubscription.unsubscribe();
-      Loadsubscription.unsubscribe();
-    };
-  }, []);
-  return (
-    &lt;div&gt;
-      wRMSCurrent
-      &lt;ReactSpeedometer
-        width={300}
-        height={300}
-        maxValue={150}
-        segments={4}
-        value={wRMSCurrent}
-      /&gt;
-      wCurrentLoad
-      &lt;ReactSpeedometer
-        width={300}
-        height={300}
-        maxValue={150}
-        segments={4}
-        value={wCurrentLoad}
-      /&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default GaugechartBoard;
-
-</code></pre>
-
-<p>파일에 작성된 내용을 요약하면 다음과 같습니다.</p>
-
-<p>Appsync API를 생성하는 스키마에서 우리는 다음과 같이 통해 Dynamodb에 항목이 생길때마다(onCreateSensor) subscription을 하는 코드를 정의한 바 있습니다.</p>
+<p>3.Appsync API를 생성하는 스키마에서 우리는 다음과 같이 통해 Dynamodb에 항목이 생길때마다(onCreateSensor) subscription을 하는 코드를 정의한 바 있습니다.</p>
 
 <pre><code class="language-shell">type Subscription {
   onCreateSensor(sensorType: String!): Sensor @aws_subscribe(mutations: [&quot;createSensor&quot;])
@@ -801,7 +768,11 @@ export default GaugechartBoard;
 
 <p>이를 통해 다음과 같이 항목이 추가될때마다 subscribe()함수가 호출이되고 이 부분에서 화면에 뿌려줄 값을 업데이트 하게 되면 자동으로 화면이 다시 그려지게 됩니다.</p>
 
-<pre><code class="language-shell">const RMSsubscription = API.graphql(
+<pre><code class="language-shell">
+import * as subscriptions from &quot;./graphql/subscriptions&quot;;
+import Amplify, { API, graphqlOperation } from &quot;aws-amplify&quot;;
+
+const RMSsubscription = API.graphql(
   graphqlOperation(subscriptions.onCreateSensor, {
     sensorType: 'wRMSCurrent',
   }),
@@ -812,20 +783,186 @@ export default GaugechartBoard;
 });
 </code></pre>
 
-<p>게이지바를 그리기 위해 다음과 같이 ReactSpeedometer를 추가하였습니다. value에 해당하는 부분이 위에서 업데이트했던 값을 넣어 두어 차트를 실시간으로 변경하고 있습니다.</p>
+<p>4.게이지바를 그리기 위한 custom component 생성</p>
 
-<pre><code class="language-shell">&lt;ReactSpeedometer
-  width={300}
-  height={300}
-  maxValue={150}
-  segments={4}
-  value={wRMSCurrent}
-/&gt;
+<pre><code class="language-shell">import ReactSpeedometer from &quot;react-d3-speedometer&quot;;
+
+&lt;ReactSpeedometer
+            width={300}
+            height={300}
+            maxValue={150}
+            segments={4}
+            value={wRMSCurrent}
+          /&gt;
+</code></pre>
+
+<p>그래프를 선택하면 상세화면으로 이동하기 위해 index.js파일을 아래 내용으로 변경합니다.</p>
+
+<pre><code class="language-shell">import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import DetailPage from './DetailPage';
+import * as serviceWorker from './serviceWorker';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+
+
+const routing = (
+        &lt;Router&gt;
+            &lt;Switch&gt;
+                &lt;Route exact path=&quot;/&quot; component={App} /&gt;
+                &lt;Route path=&quot;/detailPage&quot; component={DetailPage} /&gt;
+                &lt;Route component={App} /&gt;
+            &lt;/Switch&gt;
+        &lt;/Router&gt;
+)
+ReactDOM.render(routing, document.getElementById('root'));
+
+
+serviceWorker.unregister();
+</code></pre>
+
+<p>이제 상세화면을 위해 DetailPage.js를 src/ 디렉토리 밑에 생성합니다.</p>
+
+<pre><code class="language-shell">cd src/
+touch DetailPage.js
+
+</code></pre>
+
+<p>그리고 파일 열어 아래 내용을 복사해서 넣습니다.</p>
+
+<pre><code class="language-shell">
+import React, { useEffect, useState } from &quot;react&quot;;
+
+import Amplify, { API, graphqlOperation } from &quot;aws-amplify&quot;;
+import * as queries from &quot;./graphql/queries&quot;;
+
+import Highcharts from &quot;highcharts&quot;;
+import HighchartsReact from &quot;highcharts-react-official&quot;;
+import qs from &quot;qs&quot;;
+
+
+const DetailPage = ({ location, history }) =&gt; {
+
+  const query = qs.parse(location.search, {
+    ignoreQueryPrefix: true
+  });
+
+  const type = query.sensorType;
+  console.log(type);
+
+  const [contents, setContents] = useState([]);
+
+  useEffect(() =&gt; {
+    const listSensors = async () =&gt; {
+      try {
+        const data = await API.graphql(
+          graphqlOperation(queries.listSensors, {
+            sensorType: type,
+            limit: 60,
+            sortDirection: &quot;DESC&quot;
+          })
+        );
+
+        console.log(&quot;data =&quot;, data);
+        const tmp = await data.data.listSensors.items;
+        setContents(tmp);
+      } catch (err) {
+        console.log(&quot;error: &quot;, err);
+      }
+    };
+
+    const intervalID = setInterval(() =&gt; {
+      listSensors();
+    }, 2000);
+
+    return () =&gt; {
+      console.log('clean up in detail');
+      clearInterval(intervalID);
+    };
+  }, [type]);
+
+  const data = [];
+  const timestamp = [];
+
+  contents.map(
+    (r, idx) =&gt; (
+      data[idx] = r.value, timestamp[idx] = new Date(r.timestamp)
+    )
+  );
+  data.reverse();
+  timestamp.reverse()
+
+  //console.log(&quot;data === &quot; + data.reverse());
+ // console.log(&quot;data === &quot; + timestamp.reverse());
+
+  const options = {
+    chart: {
+      type: &quot;spline&quot;
+    },
+    title: {
+      text: type
+    },
+    xAxis: {
+      categories: timestamp
+    },
+    series: [
+      {
+        data: data
+      }
+    ]
+  };
+
+
+ const handleGoBack =()=&gt;{
+    history.goBack();
+  }
+
+  return (
+    &lt;div&gt;
+    &lt;button onClick={handleGoBack}&gt;go back&lt;/button&gt;
+      &lt;HighchartsReact highcharts={Highcharts} options={options} /&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default DetailPage;
+
+
+</code></pre>
+
+<p>이 파일에서는 2초에 한번씩 센서값을 60개 단위로 쿼리 해온 결과를 Line chart를 업데이트 합니다.</p>
+
+<pre><code class="language-shell">import * as queries from &quot;./graphql/queries&quot;;
+
+
+    const listSensors = async () =&gt; {
+      try {
+        const data = await API.graphql(
+          graphqlOperation(queries.listSensors, {
+            sensorType: type,
+            limit: 60,
+            sortDirection: &quot;DESC&quot;
+          })
+        );
+
+        console.log(&quot;data =&quot;, data);
+        const tmp = await data.data.listSensors.items;
+        setContents(tmp);
+      } catch (err) {
+        console.log(&quot;error: &quot;, err);
+      }
+    };
+
+    const intervalID = setInterval(() =&gt; {
+      listSensors();
+    }, 2000);
 </code></pre>
 
 <p>이제 웹 어플리케이션을 실행합니다.</p>
 
-<pre><code class="language-shell">npm start
+<pre><code class="language-shell">cd ..
+npm start
 </code></pre>
 
 <p>웹어플리케이션이 시작되면 다음과 같이 로그인 화면이 보이게 됩니다. 이 화면은 amplify에서 default로 제공해주는 화면입니다. 물론 이 화면을 여러분의 화면으로 변경하실수있습니다. 여기서는 default화면을 사용하겠습니다.</p>
@@ -843,7 +980,8 @@ export default GaugechartBoard;
 <p>생성하신 아이디와 비밀번호로 로그인하면 다음과 같은 모니터링 화면을 보실 수 있습니다.
 수고하셨습니다.</p>
 
-<p><img src="/images/screen10.png" alt="screen10.png" /></p>
+<p><img src="/images/screen10.png" alt="screen10.png" />
+<img src="/images/screen11.png" alt="screen11.png" /></p>
 
 
 <footer class="footline">
@@ -1180,19 +1318,19 @@ export default GaugechartBoard;
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1590977770"></script>
-    <script src="/js/perfect-scrollbar.min.js?1590977770"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1590977770"></script>
-    <script src="/js/jquery.sticky.js?1590977770"></script>
-    <script src="/js/featherlight.min.js?1590977770"></script>
-    <script src="/js/highlight.pack.js?1590977770"></script>
+    <script src="/js/clipboard.min.js?1591075933"></script>
+    <script src="/js/perfect-scrollbar.min.js?1591075933"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1591075933"></script>
+    <script src="/js/jquery.sticky.js?1591075933"></script>
+    <script src="/js/featherlight.min.js?1591075933"></script>
+    <script src="/js/highlight.pack.js?1591075933"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1590977770"></script>
-    <script src="/js/learn.js?1590977770"></script>
-    <script src="/js/hugo-learn.js?1590977770"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1591075933"></script>
+    <script src="/js/learn.js?1591075933"></script>
+    <script src="/js/hugo-learn.js?1591075933"></script>
 
-    <link href="/mermaid/mermaid.css?1590977770" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1590977770"></script>
+    <link href="/mermaid/mermaid.css?1591075933" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1591075933"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

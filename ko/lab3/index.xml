@@ -17,8 +17,8 @@
       <guid>/ko/lab3/react-package-install/</guid>
       <description>React 웹어플리케이션에서 필요한 패키지들을 설치합니다.
 다음 명령어를 이용하여 aws-amplify과 @aws-amplify/ui-react 를 설치합니다. aws-amplify 패키지는 amplify를 위한 main 라이브리리 입니다. React specific UI components를 위해 @aws-amplify/ui-react도 설치합니다.
-npm install aws-amplify @aws-amplify/ui-react  그리고, 게이지차트와 일부 UI패키지를 위해 다음 명령어를 이용하여 추가 설치합니다.
-npm install --save semantic-ui-react react-d3-speedometer  </description>
+npm install aws-amplify @aws-amplify/ui-react  그리고, 필요한 패키지를 다음 명령어를 이용하여 추가 설치합니다.
+npm install --save semantic-ui-react react-d3-speedometer react-router-dom qs highcharts highcharts-react-official  </description>
     </item>
     
     <item>
@@ -29,7 +29,7 @@ npm install --save semantic-ui-react react-d3-speedometer  </description>
       <guid>/ko/lab3/frontend/</guid>
       <description>App.js 수정하기
 App.js로 이동하여 파일 내용을 아래와 같이 수정합니다.
-import React from &#39;react&#39;; import &#39;./App.css&#39;; //--- import {withAuthenticator} from &#39;@aws-amplify/ui-react&#39;; import GaugechartBoard from &#39;./components/GaugechartBoard.js&#39;; import {Container, Header} from &#39;semantic-ui-react&#39;; import Amplify from &#39;aws-amplify&#39;; import awsExports from &#39;./aws-exports&#39;; Amplify.configure(awsExports); //- function App() { return ( &amp;lt;div style={styles}&amp;gt; &amp;lt;Container text style={{marginBottom: &#39;1em&#39;}}&amp;gt; &amp;lt;Header as=&amp;quot;h1&amp;quot; style={{textAlign: &#39;center&#39;}}&amp;gt; IoT Dashboard &amp;lt;/Header&amp;gt; &amp;lt;/Container&amp;gt; &amp;lt;Container style={{marginTop: &#39;2em&#39;}}&amp;gt; &amp;lt;Header as=&amp;quot;h2&amp;quot;&amp;gt;공장 1 라인&amp;lt;/Header&amp;gt; &amp;lt;p&amp;gt;차트를 클릭하면 상세 화면을 보실 수 있습니다.</description>
+import React, { useEffect, useState } from &amp;quot;react&amp;quot;; import ReactSpeedometer from &amp;quot;react-d3-speedometer&amp;quot;; import { Container, Header } from &amp;quot;semantic-ui-react&amp;quot;; import { Link } from &amp;quot;react-router-dom&amp;quot;; import { withAuthenticator } from &amp;quot;@aws-amplify/ui-react&amp;quot;; import * as subscriptions from &amp;quot;./graphql/subscriptions&amp;quot;; import Amplify, { API, graphqlOperation } from &amp;quot;aws-amplify&amp;quot;; import awsExports from &amp;quot;./aws-exports&amp;quot;; Amplify.configure(awsExports); function App() { const [wCurrentLoad, setWCurrentLoad] = useState(); const [wRMSCurrent, setWRMSCurrent] = useState(); useEffect(() =&amp;gt; { const RMSsubscription = API.</description>
     </item>
     
   </channel>
