@@ -12,20 +12,20 @@
     <title>Amplify CL를 이용하여 Backend 생성하기 1 :: Hugo 템플릿 활용하기</title>
 
     
-    <link href="/css/nucleus.css?1591248440" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1591248440" rel="stylesheet">
-    <link href="/css/hybrid.css?1591248440" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1591248440" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1591248440" rel="stylesheet">
-    <link href="/css/auto-complete.css?1591248440" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1591248440" rel="stylesheet">
-    <link href="/css/theme.css?1591248440" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1591248440" rel="stylesheet">
+    <link href="/css/nucleus.css?1597547401" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1597547401" rel="stylesheet">
+    <link href="/css/hybrid.css?1597547401" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1597547401" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1597547401" rel="stylesheet">
+    <link href="/css/auto-complete.css?1597547401" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1597547401" rel="stylesheet">
+    <link href="/css/theme.css?1597547401" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1597547401" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1591248440" rel="stylesheet">
+      <link href="/css/theme-aws.css?1597547401" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1591248440"></script>
+    <script src="/js/jquery-3.3.1.min.js?1597547401"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -53,14 +53,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1591248440"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1591248440"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1597547401"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1597547401"></script>
 <script type="text/javascript">
     
         var baseurl = "\/ko";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1591248440"></script>
+<script type="text/javascript" src="/js/search.js?1597547401"></script>
 
     
   </div>
@@ -653,24 +653,36 @@ Amplify CLI를 이용하면 dynamodb를 직접 console에서 만들필요가 없
 
 <p>다음과 같이 명령어를 입력합니다.</p>
 
+<p><strong><em>api 호출을 위해 권한으로 Cognito User Pool과 IAM을 2가지를 사용할 예정입니다.
+    <font color='red'>아래 내용을 주의깊게 따라하십시요</font></em></strong></p>
+
 <pre><code class="language-shell">amplify add api
 </code></pre>
 
-<p>다음을 참고하여 입력값을 넣습니다. api호출을 위해 권한이 필요하기 때문에 cognito user pool을 생성하였습니다.
-<img src="/images/api1.png" alt="api1.png" /></p>
+<ol>
+<li><p>cognito user pool을 이용한 api 권한 관리.
+amplify add api 명령어 이후 아래단계까지만 따라해주세요. (<strong><em>여기 까지가 Cognito User Pool 권한 주는 단계입니다</em></strong>)
+<img src="/images/api1.png" alt="api31.png" /></p></li>
 
-<p>graphql api는 람다에서도 호출할 예정입니다. 이때는 IAM권한으로 호출할것인데요, 이를 위해 권한을 다음과 같이 추가합니다.  즉, 생성하는 graphql api 는 cognito와 iam으로 권한을 인증받겠다는 것입니다.</p>
+<li><p>IAM을 이용한 api 권한 관리.
+graphql api는 람다에서도 호출할 예정입니다. 이때는 IAM권한으로 호출할것인데요,
+아래와 같이 GraphQL의 advanced settings을 할거냐고 묻는 답변에 <strong><em>Yes</em></strong> 를 선택합니다.
+<strong><em>defalut값이 No입니다 주의하십쇼</em></strong>
+<img src="/images/api32.png" alt="api32.png" /></p>
 
-<p><strong><em>Configure additional auth types?</em></strong> 이 default값이 <strong>No</strong>입니다. <strong>Yes</strong>로 바꿔서 입력해야합니다. 주의하세요!</p>
+<p><strong><em>Configure additional auth types?</em></strong> 이 default값이 <strong>No</strong>입니다. <strong>Yes</strong>로 바꿔서 입력해야합니다.
+  <img src="/images/api2.png" alt="api2.png" /><br />
+  <strong><em>IAM 선택시 Enter 대신 IAM에 커서를 옮기고, <font color='red'>스페이스바</font>를 눌러 선택하셔야 합니다!</em></strong></p></li>
+</ol>
 
-<p><strong><em>IAM 선택시 Enter 대신 IAM에 커서를 옮기고, 스페이스바를 눌러 선택하셔야 합니다!</em></strong></p>
+<p>이후 나머지 선택은 default로 합니다
+<img src="/images/api33.png" alt="api33.png" /></p>
 
-<p><img src="/images/api2.png" alt="api2.png" /></p>
+<p>우리는 위에서 schema을 편집할것인지 묻는데, No를 선택했습니다. 만약 yes를 선택하면 스키마를 입력할수있게 vim이 자동으로 뜹니다. 하지만 우리는 No를 선택했기 때문에, 스키마 저장을 위해 아래와 같이 schema파일을 <strong><em>open</em></strong> 합니다.
+<img src="/images/api34.png" alt="api34.png" /></p>
 
-<p>다음 입력값도 아래을 참고하여 넣습니다.
-마지막에 schema을 편집할것인지 묻는데, yes를 누르면 스키마를 넣을수있습니다. 샘플로 제시된 스키마를 모두 지우고 아래 스키마로 입력 저장후 wq로 빠져나오게 되면 amplify add api 가 완료됩니다.</p>
-
-<p><img src="/images/api3.png" alt="api3.png" /></p>
+<p>open된 파일에 아래와 같이 입력합니다. 스키마 내용은 아래 제공되오니 카피해서 붙여 넣으세요
+<img src="/images/api35.png" alt="api35.png" /></p>
 
 <pre><code class="language-shell">type Sensor @model(subscriptions: null)
 @key(fields: [&quot;sensorType&quot;, &quot;timestamp&quot;])
@@ -1063,19 +1075,19 @@ console-&gt;appsync, console-&gt;dynamodb에 가보시면 각각 생성된 것�
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1591248440"></script>
-    <script src="/js/perfect-scrollbar.min.js?1591248440"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1591248440"></script>
-    <script src="/js/jquery.sticky.js?1591248440"></script>
-    <script src="/js/featherlight.min.js?1591248440"></script>
-    <script src="/js/highlight.pack.js?1591248440"></script>
+    <script src="/js/clipboard.min.js?1597547401"></script>
+    <script src="/js/perfect-scrollbar.min.js?1597547401"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1597547401"></script>
+    <script src="/js/jquery.sticky.js?1597547401"></script>
+    <script src="/js/featherlight.min.js?1597547401"></script>
+    <script src="/js/highlight.pack.js?1597547401"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1591248440"></script>
-    <script src="/js/learn.js?1591248440"></script>
-    <script src="/js/hugo-learn.js?1591248440"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1597547401"></script>
+    <script src="/js/learn.js?1597547401"></script>
+    <script src="/js/hugo-learn.js?1597547401"></script>
 
-    <link href="/mermaid/mermaid.css?1591248440" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1591248440"></script>
+    <link href="/mermaid/mermaid.css?1597547401" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1597547401"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

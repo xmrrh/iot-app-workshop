@@ -94,7 +94,8 @@ amplify init  입력값은 다음을 참고하여 넣습니다.
       <description>지금까지 우리는 Cloud9을 IoT Device Thing로 설정하였고, Hello world라는 토픽을 python스크립트를 이용, 생성해서 IoT Core로 전달하고 전달된 것을 확인하는 과정을 진행했습니다.
 이제 우리는 Hello World라는 토픽대신 실제 조금 더 많은 메시지를 전달해보도록 하겠습니다. 이를 위해 미리 생성한 python코드를 다운로드 받습니다.
 git clone https://github.com/xmrrh/sensor-data-simulator  이제 start.sh를 수정하여 새로 받은 스크립트를 실행해보겠습니다. 왼쪽 디렉토리에서 start.sh파일을 더블클릭합니다.
-start.sh파일에서 맨아래 python 실행코드를 copy해서 붙여넣고 기존 코드는 주석(#)처리 합니다. 그리고 실행시킬 python을 sensor-data-simulator/pubsub_simulator_inference.py 로 변경합니다.</description>
+start.sh파일에서 코드 맨아래 로 이동하세요. 맨마지막 기존 코드를 카피해서 붙여 넣고 기존코드는 주석(#)처리 합니다.
+그리고 복사하신 코드에서 2가지를 변경 및 확인합니다.</description>
     </item>
     
     <item>
@@ -130,7 +131,8 @@ import React, { useEffect, useState } from &amp;quot;react&amp;quot;; import Rea
 Appsync에 dynamodb에서 사용할 스키마를 정의하면 Amplify framework을 통해 dynamodb의 테이블과 그 테이블을 access할수있는 graphql api를 자동생성할 수. 있습니다.
 amplify cli의 명령어는 다음과 같이 확인 가능합니다.
 다음과 같이 명령어를 입력합니다.
-amplify add api  다음을 참고하여 입력값을 넣습니다. api호출을 위해 권한이 필요하기 때문에 cognito user pool을 생성하였습니다. graphql api는 람다에서도 호출할 예정입니다. 이때는 IAM권한으로 호출할것인데요, 이를 위해 권한을 다음과 같이 추가합니다.</description>
+api 호출을 위해 권한으로 Cognito User Pool과 IAM을 2가지를 사용할 예정입니다. 아래 내용을 주의깊게 따라하십시요
+amplify add api   cognito user pool을 이용한 api 권한 관리.</description>
     </item>
     
     <item>
@@ -141,7 +143,8 @@ amplify add api  다음을 참고하여 입력값을 넣습니다. api호출을 
       <guid>/ko/lab1/aws-backend-2/</guid>
       <description>이제 graphql api를 호출하여 dynamodb에 센서데이타를 insert하기 위한 lambda함수를 만들어보겠습니다.
 lambda함수는 다음과 같이 생성하실 수 있습니다.
-amplify add function  입력값은 다음을 참고하세요. 람다에서 다른 리소스를 참조할거냐는 질문에는 api라고 답합니다. 이전에 만들었던 graphql api를 참조하기 때문입니다. api선택은 커서를 이동시키고 스페이스바를 누르면 선택됩니다. CRUD를 선택하는데 있어서 a를 누르면 모두 선택되고, 스페이스바를 통해서 각각 하셔도 됩니다.
+amplify add function  입력값은 다음을 참고하세요. 람다에서 다른 리소스를 참조할거냐는 질문에는 api라고 답합니다. 이전에 만들었던 graphql api를 참조하기 때문입니다. api선택은 커서를 이동시키고 스페이스바를 누르면 선택됩니다.
+또한, CRUD를 선택을 묻는 답변에는 a를 눌러 모두 선택되게 하시거나, 스페이스바를 통해서 각각 선택하셔도 됩니다.
 이제 람다 함수를 작성합니다. Cloud9에서 amplify-&amp;gt;backend-&amp;gt;function-&amp;gt;function-name-&amp;gt;src-&amp;gt;index.js파일을 더블클릭합니다.
 index.js파일을 아래 내용으로 교체합니다. 이때 리전과 GRAPHQLAPIENDPOINTOUTPUT 환경변수의 이름에 주의하셔야 합니다.</description>
     </item>

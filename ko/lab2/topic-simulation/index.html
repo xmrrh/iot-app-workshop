@@ -12,20 +12,20 @@
     <title>토픽시뮬레이션 :: Hugo 템플릿 활용하기</title>
 
     
-    <link href="/css/nucleus.css?1591248440" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1591248440" rel="stylesheet">
-    <link href="/css/hybrid.css?1591248440" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1591248440" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1591248440" rel="stylesheet">
-    <link href="/css/auto-complete.css?1591248440" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1591248440" rel="stylesheet">
-    <link href="/css/theme.css?1591248440" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1591248440" rel="stylesheet">
+    <link href="/css/nucleus.css?1597547401" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1597547401" rel="stylesheet">
+    <link href="/css/hybrid.css?1597547401" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1597547401" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1597547401" rel="stylesheet">
+    <link href="/css/auto-complete.css?1597547401" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1597547401" rel="stylesheet">
+    <link href="/css/theme.css?1597547401" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1597547401" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1591248440" rel="stylesheet">
+      <link href="/css/theme-aws.css?1597547401" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1591248440"></script>
+    <script src="/js/jquery-3.3.1.min.js?1597547401"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -53,14 +53,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1591248440"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1591248440"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1597547401"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1597547401"></script>
 <script type="text/javascript">
     
         var baseurl = "\/ko";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1591248440"></script>
+<script type="text/javascript" src="/js/search.js?1597547401"></script>
 
     
   </div>
@@ -652,14 +652,18 @@
 
 <p>이제 start.sh를 수정하여 새로 받은 스크립트를 실행해보겠습니다. 왼쪽 디렉토리에서 start.sh파일을 더블클릭합니다.</p>
 
-<p>start.sh파일에서 맨아래 python 실행코드를 copy해서 붙여넣고 기존 코드는 주석(#)처리 합니다. 그리고 실행시킬 python을 sensor-data-simulator/pubsub_simulator_inference.py 로 변경합니다. 그리고 사용할 토픽을 추가로 넣습니다. (&ndash;topic iot/sensors)</p>
+<p>start.sh파일에서 <strong><em>코드 맨아래</em></strong> 로 이동하세요.
+맨마지막 기존 코드를 카피해서 붙여 넣고 기존코드는 주석(#)처리 합니다.</p>
 
-<p>인증서 및 KEY는 여러분이 IoT Core로부터 다운받은 것을 그대로 사용해야합니다.
-아래 코드는 <strong>참고</strong>용입니다. 파일명과 토픽만 추가하세요.</p>
+<p>그리고 복사하신 코드에서 2가지를 변경 및 확인합니다.</p>
 
-<pre><code class="language-shell">#python aws-iot-device-sdk-python/samples/basicPubSub/basicPubSub.py -e a8p3rfcssiffj-ats.iot.eu-west-2.amazonaws.com -r root-CA.crt -c MyThing.cert.pem -k MyThing.private.key 
-python sensor-data-simulator/pubsub_simulator_inference.py -e a8p3rfcssiffj-ats.iot.eu-west-2.amazonaws.com -r root-CA.crt -c MyThing.cert.pem -k MyThing.private.key --topic iot/sensors
-</code></pre>
+<ol>
+<li>실행시킬 python이 sensor-data-simulator/pubsub_simulator_inference.py 로 변경됨.
+( aws-iot-device-sdk-python/samples/basicPubSub/basicPubSub.py <font color='red'>&ndash;&gt;</font> sensor-data-simulator/pubsub_simulator_inference.py )</li>
+<li>사용할 토픽을 추가 (&ndash;topic iot/sensors)</li>
+</ol>
+
+<p>아래 그림은 참고용으로 최종 적용된 모습니다.</p>
 
 <p><img src="/images/cloud9-7.png" alt="cloud9-7.png" /></p>
 
@@ -1015,19 +1019,19 @@ python sensor-data-simulator/pubsub_simulator_inference.py -e a8p3rfcssiffj-ats.
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1591248440"></script>
-    <script src="/js/perfect-scrollbar.min.js?1591248440"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1591248440"></script>
-    <script src="/js/jquery.sticky.js?1591248440"></script>
-    <script src="/js/featherlight.min.js?1591248440"></script>
-    <script src="/js/highlight.pack.js?1591248440"></script>
+    <script src="/js/clipboard.min.js?1597547401"></script>
+    <script src="/js/perfect-scrollbar.min.js?1597547401"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1597547401"></script>
+    <script src="/js/jquery.sticky.js?1597547401"></script>
+    <script src="/js/featherlight.min.js?1597547401"></script>
+    <script src="/js/highlight.pack.js?1597547401"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1591248440"></script>
-    <script src="/js/learn.js?1591248440"></script>
-    <script src="/js/hugo-learn.js?1591248440"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1597547401"></script>
+    <script src="/js/learn.js?1597547401"></script>
+    <script src="/js/hugo-learn.js?1597547401"></script>
 
-    <link href="/mermaid/mermaid.css?1591248440" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1591248440"></script>
+    <link href="/mermaid/mermaid.css?1597547401" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1597547401"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
